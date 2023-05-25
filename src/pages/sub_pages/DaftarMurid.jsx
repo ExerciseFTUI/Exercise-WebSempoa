@@ -11,7 +11,7 @@ export default function DaftarMurid() {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get("https://exercise-websempoa-api-production.up.railway.app/murid");
+    const { data } = await axios.get("https://nice-teal-peacock-fez.cyclic.app/murid");
     setMurid(data);
     console.log(data);
   };
@@ -46,10 +46,10 @@ export default function DaftarMurid() {
                 return (
                   <tr className="border-hidden hover text-black" key={data.id}>
                     <th></th>
-                    <td>{data._id}</td>
+                    <td>{data.id}</td>
                     <td>{data.nama}</td>
                     <td>{data.level_sekarang}</td>
-                    <td>{data.email}</td>
+                    <td>{data.status}</td>
                   </tr>
                 );
               })}
