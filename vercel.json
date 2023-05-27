@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/dashboard/daftarmurid", "destination": "/sub_pages/DaftarMurid.html" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

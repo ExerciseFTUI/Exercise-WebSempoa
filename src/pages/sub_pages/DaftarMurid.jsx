@@ -11,7 +11,7 @@ export default function DaftarMurid() {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get("https://exercise-websempoa-api-production.up.railway.app/murid");
+    const { data } = await axios.get("https://nice-teal-peacock-fez.cyclic.app/murid");
     setMurid(data);
     console.log(data);
   };
