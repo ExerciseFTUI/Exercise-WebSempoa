@@ -1,7 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-export default class Barang extends Component {
-  render() {
-    return <div>Barang</div>;
-  }
+export default function Barang() {
+  return <div>Barang</div>
 }
