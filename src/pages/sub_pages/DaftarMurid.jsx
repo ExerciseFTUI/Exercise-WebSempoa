@@ -1,20 +1,28 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { CiSearch } from "react-icons/ci";
+import axios from "axios"
+import React, { useState } from "react"
+import { useEffect } from "react"
+import { CiSearch } from "react-icons/ci"
 
 export default function DaftarMurid() {
-  const [murid, setMurid] = useState([]);
+  const [murid, setMurid] = useState([])
 
   useEffect(() => {
-    getData();
-  }, []);
+    // getData()
+    axios
+      .get("https://randomuser.me/api/?results=24")
+      .then(({ data }) => {
+        setMurid(data.results)
+        console.log(data.results)
+      })
+      .catch((error) => console.error(error))
+  }, [])
 
   const getData = async () => {
-    const { data } = await axios.get("https://exercise-websempoa-api-production.up.railway.app/murid");
-    setMurid(data);
-    console.log(data);
-  };
+    // https://exercise-websempoa-api-production.up.railway.app/murid
+    const data = await axios.get("https://randomuser.me/api/?results=24")
+    setMurid(data.data.results)
+    console.log(data.data.results)
+  }
 
   return (
     <div className="flex-auto bg-[#fb9e23]">
@@ -24,7 +32,11 @@ export default function DaftarMurid() {
       </div>
       <div className="px-12 p-6 space-y-6">
         <div className="flex flex-row items-center space-x-2">
-          <input type="search" className="rounded-3xl px-5 p-2" placeholder="Search" />
+          <input
+            type="search"
+            className="rounded-3xl px-5 p-2"
+            placeholder="Search"
+          />
           <CiSearch className="text-4xl text-[#FAFAFA]" />
         </div>
         <div className="overflow-x-auto bg-[#FAFAFA] rounded-3xl">
@@ -42,21 +54,20 @@ export default function DaftarMurid() {
             </thead>
             <tbody>
               {/* row 1 */}
-              {murid.map((data) => {
-                return (
-                  <tr className="border-hidden hover text-black" key={data.id}>
-                    <th></th>
-                    <td>{data._id}</td>
-                    <td>{data.nama}</td>
-                    <td>{data.level_sekarang}</td>
-                    <td>{data.email}</td>
-                  </tr>
-                );
-              })}
+              {murid.map((data, i) => (
+                <tr className="border-hidden hover text-black" key={i}>
+                  <th></th>
+                  <td>{data.login.uuid}</td>
+                  <td>{data.name.first + " " + data.name.last}</td>
+                  <td className="text-center">{data.dob.age}</td>
+                  <td>{data.registered.date}</td>
+                  <td>{data.email}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  );
+  )
 }
