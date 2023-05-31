@@ -9,39 +9,8 @@ import ErrorPage from "./pages/ErrorPage";
 import LoginPage from "./pages/LoginPage";
 import PilihCabang from "./pages/PilihCabang";
 
-// const router = createBrowserRouter([
-//   {
-//     element: <App />,
-//     children: [
-//       {
-//         path: "/login",
-//         element: <LoginPage />,
-//       },
-//       {
-//         path: "/cabang",
-//         element: <PilihCabang />,
-//       },
-//       {
-//         path: "/dashboard",
-//         element: <Dashboard />,
-//         routes: [
-//           {
-//             path: "/dashboard/:page",
-//             element: <Dashboard />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     path: "/*",
-//     element: <Navigate to="/dashboard" />,
-//   },
-// ]);
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <RouterProvider router={router} /> */}
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
