@@ -25,7 +25,7 @@ export default function DaftarMurid() {
   }
 
   return (
-    <div className="flex-auto bg-[#fb9e23]">
+    <div className="flex-auto bg-[#fb9e23] overflow-x-hidden">
       <div className="bg-[#ed7336] font-Inter text-[#FAFAFA] p-6 px-12 space-y-2">
         <h1 className="font-bold text-2xl">Cabang A</h1>
         <h2 className="font-extralight text-md">Kota, Provinsi</h2>

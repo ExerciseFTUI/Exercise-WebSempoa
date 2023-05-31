@@ -21,7 +21,7 @@ const Dashboard = () => {
   const SubPages = components[page] || DaftarMurid
 
   return (
-    <div className="flex font-Inter overflow-x-auto">
+    <div className="flex font-Inter">
       <Sidebar />
       <SubPages />
     </div>
