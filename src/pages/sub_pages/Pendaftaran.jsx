@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import sempoaLogo from "../../assets/sempoa-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function Pendaftaran() {
-  var maleCheckbox = document.getElementById("male-checkbox");
-  var femaleCheckbox = document.getElementById("female-checkbox");
+  const [maleChecked, setMaleChecked] = useState(false);
+  const [femaleChecked, setFemaleChecked] = useState(false);
 
-  maleCheckbox.addEventListener("change", function () {
-    if (this.checked) {
-      femaleCheckbox.checked = false;
+  const handleMaleCheckboxChange = (event) => {
+    setMaleChecked(event.target.checked);
+    if (event.target.checked) {
+      setFemaleChecked(false);
     }
-  });
+  };
 
-  femaleCheckbox.addEventListener("change", function () {
-    if (this.checked) {
-      maleCheckbox.checked = false;
+  const handleFemaleCheckboxChange = (event) => {
+    setFemaleChecked(event.target.checked);
+    if (event.target.checked) {
+      setMaleChecked(false);
     }
-  });
+  };
 
   return (
     <div className="flex-auto bg-[#ed7336]">
@@ -33,13 +35,13 @@ export default function Pendaftaran() {
           </label>
           <div className="w-[264px] h-12 border-2 border-orange-sempoa rounded-3xl absolute right-0">
             <div class="flex items-center p-2 px-3 space-x-16">
-              <label for="male-checkbox" className="cursor-pointer relative text-orange-sempoa">
-                <input id="male-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" />
+              <label htmlFor="male-checkbox" className="cursor-pointer relative text-orange-sempoa">
+                <input id="male-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" checked={maleChecked} onChange={handleMaleCheckboxChange} />
                 <FontAwesomeIcon icon={faCheck} className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition" />
                 <span className="ml-2">Male</span>
               </label>
-              <label for="female-checkbox" className="cursor-pointer relative text-orange-sempoa">
-                <input id="female-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" />
+              <label htmlFor="female-checkbox" className="cursor-pointer relative text-orange-sempoa">
+                <input id="female-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" checked={femaleChecked} onChange={handleFemaleCheckboxChange} />
                 <FontAwesomeIcon icon={faCheck} className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition" />
                 <span className="ml-2">Female</span>
               </label>
@@ -125,6 +127,16 @@ export default function Pendaftaran() {
           <label id="class_schedule" className="flex flex-col space-y-3 absolute right-0" dir="rtl">
             <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">Class Schedule</span>
             <input type="text" name="class_schedule" id="class_schedule" className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          </label>
+        </div>
+        <div className="flex flex-row space-x-8 text-xl relative">
+          <label id="registration_fee" className="flex flex-col space-y-3">
+            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">Registration Fee</span>
+            <input type="text" name="registration_fee" id="registration_fee" className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          </label>
+          <label id="teacher_assigned" className="flex flex-col space-y-3 absolute right-0" dir="rtl">
+            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">Teacher Assigned</span>
+            <input type="text" name="teacher_assigned" id="teacher_assigned" className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
           </label>
         </div>
       </div>

@@ -24,7 +24,7 @@ export default function DaftarMurid() {
       </div>
       <div className="px-12 p-6 space-y-6">
         <div className="flex flex-row items-center space-x-2">
-          <input type="search" className="rounded-3xl px-5 p-2" placeholder="Search" />
+          <input type="search" className="rounded-3xl px-5 p-2 focus:outline-none" placeholder="Search" />
           <CiSearch className="text-4xl text-[#FAFAFA]" />
         </div>
         <div className="overflow-x-auto bg-[#FAFAFA] rounded-3xl">
