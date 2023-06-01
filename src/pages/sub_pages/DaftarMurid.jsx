@@ -3,18 +3,25 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import URL from "../../utils/link";
+import { useNavigate } from "react-router-dom";
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${URL}murid`);
-    setMurid(data);
-    console.log(data);
+    try {
+      const { data } = await axios.get(`${URL}/murid`);
+      setMurid(data);
+      console.log(data);
+    } catch (error) {
+      // navigate("/login");
+      console.error(error.response.data.message);
+    }
   };
 
   return (

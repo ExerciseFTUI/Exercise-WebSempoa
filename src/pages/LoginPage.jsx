@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import sempoaLogo from "../assets/sempoa-logo.png";
 import exerciseLogo from "../assets/Exercise Logo.png";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+
+import { UserContext } from "../components/UserContext";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [open, setOpen] = useState(false);
+  const { login } = useContext(UserContext);
 
   const toggle = () => {
     setOpen(!open);
   };
   const handleSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+    login(username, pass);
   };
 
   return (
