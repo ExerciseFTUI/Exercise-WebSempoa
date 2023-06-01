@@ -14,16 +14,23 @@ module.exports = {
       colors: {
         "orange-sempoa": "#FB9E23",
         white: "#FAFAFA",
+        "orange-sempoa-dark": "#ED7336",
       },
       borderColor: theme => ({
         DEFAULT: theme('colors.gray.300', 'currentColor'),
-        'orange-sempoa' : '#FB9E23' 
+        'orange-sempoa' : '#FB9E23',
+        "white": "#FAFAFA",
+        "orange-sempoa-dark": "#ED7336",
       }),
       backgroundColor: theme => ({
-        'orange-sempoa' : '#FB9E23' 
+      "orange-sempoa": "#FB9E23",
+       "white": "#FAFAFA",
+        "orange-sempoa-dark": "#ED7336",
       }),
       textColor:{
-        'orange-sempoa' : '#FB9E23' 
+        'orange-sempoa' : '#FB9E23',
+        "white": "#FAFAFA",
+        "orange-sempoa-dark": "#ED7336", 
       },
     },
   },

@@ -36,7 +36,7 @@ const Barang = () => {
   };
   return (
     <div className="flex-auto bg-[#fb9e23]">
-      <div className="bg-[#ed7336] font-Inter text-[#FAFAFA] p-6 px-12 space-y-2">
+      <div className="bg-[#ed7336] font-Inter text-white p-6 px-12 space-y-2">
         <h1 className="font-bold text-2xl">Cabang A</h1>
         <h2 className="font-extralight text-md">Kota, Provinsi</h2>
       </div>
@@ -44,28 +44,28 @@ const Barang = () => {
         <div className="flex flex-row space-x-16">
           <div className="flex flex-row items-center space-x-2">
             <input type="search" className="rounded-3xl px-5 p-2 focus:outline-none" placeholder="Search" />
-            <CiSearch className="text-4xl text-[#FAFAFA]" />
+            <CiSearch className="text-4xl text-white" />
           </div>
           <div className="flex flex-row space-x-10">
             <div
-              className={`bg-[#FAFAFA] text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-[#FAFAFA] ${selectedOption === "tersedia" ? "bg-orange-sempoa-dark text-[#FAFAFA]" : ""}`}
+              className={`bg-white text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-white ${selectedOption === "tersedia" ? "bg-orange-sempoa-dark text-white hover:text-white" : ""}`}
               onClick={() => handleClick("tersedia")}>
               Tersedia
             </div>
             <div
-              className={`bg-[#FAFAFA] text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-[#FAFAFA] ${selectedOption === "terjual" ? "bg-orange-sempoa-dark text-[#FAFAFA]" : ""}`}
+              className={`bg-white text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-white ${selectedOption === "terjual" ? "bg-orange-sempoa-dark text-white hover:text-white" : ""}`}
               onClick={() => handleClick("terjual")}>
               Terjual
             </div>
             <div
-              className={`bg-[#FAFAFA] text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-[#FAFAFA] ${selectedOption === "rusak" ? "bg-orange-sempoa-dark text-[#FAFAFA]" : ""}`}
+              className={`bg-white text-xl p-[6px] px-10 my-auto rounded-3xl hover:text-orange-sempoa cursor-pointer border-2 border-white ${selectedOption === "rusak" ? "bg-orange-sempoa-dark text-white hover:text-white" : ""}`}
               onClick={() => handleClick("rusak")}>
               Rusak
             </div>
           </div>
         </div>
 
-        <div className="overflow-x-auto bg-[#FAFAFA] rounded-3xl">
+        <div className="overflow-x-auto bg-white rounded-3xl">
           <table className="table w-full">
             {/* head */}
             <thead>
