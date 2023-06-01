@@ -15,6 +15,16 @@ module.exports = {
         "orange-sempoa": "#FB9E23",
         white: "#FAFAFA",
       },
+      borderColor: theme => ({
+        DEFAULT: theme('colors.gray.300', 'currentColor'),
+        'orange-sempoa' : '#FB9E23' 
+      }),
+      backgroundColor: theme => ({
+        'orange-sempoa' : '#FB9E23' 
+      }),
+      textColor:{
+        'orange-sempoa' : '#FB9E23' 
+      },
     },
   },
   plugins: [require("daisyui")],

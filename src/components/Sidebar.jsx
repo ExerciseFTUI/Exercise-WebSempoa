@@ -6,6 +6,7 @@ import {
   BsPeople,
   BsPencilSquare,
   BsCardHeading,
+  BsChevronDown,
 } from "react-icons/bs"
 import { BiPackage } from "react-icons/bi"
 import { IoShirtOutline } from "react-icons/io5"
@@ -70,14 +71,18 @@ export default function Sidebar() {
             return (
               <div key={index} className="h-16">
                 <li
-                  className={`peer flex flex-auto mx-auto items-center justify-between ${
+                  key={index}
+                  className={`peer flex flex-auto mx-auto pr-5 items-center justify-between ${
                     open ? "w-[90%]" : "w-16"
                   } duration-500 h-14 rounded-2xl border-solid text-[#ED7336] border-[#ED7336] hover:text-[#FAFAFA] hover:bg-[#ED7336] border-2 cursor-pointer ${menu.id === page && "bg-[#ED7336] text-[#FAFAFA]"}`}
                   onClick={handleClick}>
-                  <Icon className={`text-2xl ${open ? "m-2 ml-10" : "m-auto"} `} />
-                  <span className={`text-base ${!open && "hidden"}`}>{menu.title}</span>
+                  <div className="flex items-center">
+                    <Icon className={`text-2xl ${open ? "m-2 ml-10" : "m-auto"} `} />
+                    <span className={`text-base ${!open && "hidden"}`}>{menu.title}</span>
+                  </div>
+                  {menu.id === "Barang" && <BsChevronDown className="text-2xl" />}
                 </li>
-                {menu.id === page && <div className="peer-visible h-8 w-8 bg-[#ED7336] rounded-lg relative -left-11 -top-11" />}{" "}
+                {menu.id === page && <div className="peer-visible h-8 w-8 bg-[#ED7336] rounded-lg relative -left-11 -top-11" />}
               </div>
             );
           })}

@@ -56,3 +56,22 @@ img {
 .cabang-container-pagination>.swiper-pagination-bullet-active-prev-prev {
     transform: scale(0) !important;
 }
+
+#male-checkbox:checked ~ .check-1{
+    @apply text-opacity-100;
+    animation: check-anime 0.4s 1;
+}
+
+#female-checkbox:checked~.check-1 {
+    @apply text-opacity-100;
+    animation: check-anime 0.4s 1;
+}
+
+@keyframes check-anime {
+    0%, 100%{
+        @apply transform scale-100;
+    }
+    50%{
+        @apply transform scale-150 text-opacity-0;
+    }
+}

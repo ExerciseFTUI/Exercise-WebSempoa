@@ -2,6 +2,7 @@ import axios from "axios"
 import React, { useState } from "react"
 import { useEffect } from "react"
 import { CiSearch } from "react-icons/ci"
+import URL from "../../utils/link"
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([])
@@ -18,10 +19,9 @@ export default function DaftarMurid() {
   }, [])
 
   const getData = async () => {
-    // https://exercise-websempoa-api-production.up.railway.app/murid
-    const data = await axios.get("https://randomuser.me/api/?results=24")
-    setMurid(data.data.results)
-    console.log(data.data.results)
+    const { data } = await axios.get(`${URL}murid`)
+    setMurid(data)
+    console.log(data)
   }
 
   return (
@@ -34,7 +34,7 @@ export default function DaftarMurid() {
         <div className="flex flex-row items-center space-x-2">
           <input
             type="search"
-            className="rounded-3xl px-5 p-2"
+            className="rounded-3xl px-5 p-2 focus:outline-none"
             placeholder="Search"
           />
           <CiSearch className="text-4xl text-[#FAFAFA]" />
