@@ -13,17 +13,18 @@ module.exports = {
       },
       colors: {
         "orange-sempoa": "#FB9E23",
+        "orange-darker": "#ED7336",
         white: "#FAFAFA",
       },
-      borderColor: theme => ({
-        DEFAULT: theme('colors.gray.300', 'currentColor'),
-        'orange-sempoa' : '#FB9E23' 
+      borderColor: (theme) => ({
+        DEFAULT: theme("colors.gray.300", "currentColor"),
+        "orange-sempoa": "#FB9E23",
       }),
-      backgroundColor: theme => ({
-        'orange-sempoa' : '#FB9E23' 
+      backgroundColor: (theme) => ({
+        "orange-sempoa": "#FB9E23",
       }),
-      textColor:{
-        'orange-sempoa' : '#FB9E23' 
+      textColor: {
+        "orange-sempoa": "#FB9E23",
       },
     },
   },
