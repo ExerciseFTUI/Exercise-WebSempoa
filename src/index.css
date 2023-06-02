@@ -5,65 +5,25 @@
 @tailwind components;
 @tailwind utilities;
 
-img {
-    -webkit-user-drag: none;
-    user-drag: none;
-}
+@layer base {
+    img {
+        user-select: none;
+    }
 
-.cabang-container-pagination {
-    @apply relative overflow-visible mx-4;
-    width: 145px !important;
-}
-
-.cabang-container-pagination, .swiper-pagination-bullets {
-    bottom: 0px !important;
-    left: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet {
-    @apply relative bg-orange-sempoa border-2 border-orange-sempoa text-white text-base font-bold text-center leading-7 w-8 h-8 rounded-md;
-    opacity: 1 !important;
-    transition: ease-in-out 200ms !important;
-    transform: scale(0);
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active-main {
-    transform: scale(1) translateX(-48px);
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active {
-    background-color: transparent;
-    color: theme('colors.orange-sempoa');
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet:hover {
-    @apply bg-white text-orange-sempoa
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active-next {
-    transform: scale(0) !important;
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active-next-next {
-    transform: scale(0) !important;
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active-prev {
-    transform: scale(0) !important;
-}
-
-.cabang-container-pagination>.swiper-pagination-bullet-active-prev-prev {
-    transform: scale(0) !important;
+    h1 {
+        font-weight: bold;
+    }
 }
 
 #male-checkbox:checked ~ .check-1{
     @apply text-opacity-100;
+
     animation: check-anime 0.4s 1;
 }
 
 #female-checkbox:checked~.check-1 {
     @apply text-opacity-100;
+    
     animation: check-anime 0.4s 1;
 }
 
