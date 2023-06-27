@@ -1,17 +1,11 @@
-import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
-import "./App.css";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="h-screen">
+    <>
       <Outlet />
-    </div>
+    </>
   );
 }
 

@@ -1,23 +1,20 @@
-import React, { useState, useContext } from "react";
-import sempoaLogo from "../assets/sempoa-logo.png";
-import exerciseLogo from "../assets/Exercise Logo.png";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import React, { useState } from "react"
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
-import { UserContext } from "../components/UserContext";
+import sempoaLogo from "../../assets/sempoa-logo.png"
+import exerciseLogo from "../../assets/Exercise Logo.png"
 
 const LoginPage = (props) => {
-  const [username, setUsername] = useState("");
-  const [pass, setPass] = useState("");
-  const [open, setOpen] = useState(false);
-  const { login } = useContext(UserContext);
+  const [username, setUsername] = useState("")
+  const [pass, setPass] = useState("")
+  const [open, setOpen] = useState(false)
 
   const toggle = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    login(username, pass);
-  };
+    e.preventDefault
+  }
 
   return (
     <div className="sm:bg-login-pattern bg-login-pattern-mobile bg-contain bg-no-repeat w-full h-screen bg-[#FAFAFA]">
@@ -50,15 +47,12 @@ const LoginPage = (props) => {
                   onChange={(e) => setUsername(e.target.value)}
                   onKeyUp={(e) => {
                     if (e.target.value !== "") {
-                      e.target.classList.add(
-                        "border-orange-sempoa",
-                        "border-2"
-                      );
+                      e.target.classList.add("border-orange-sempoa", "border-2")
                     } else {
                       e.target.classList.remove(
                         "border-orange-sempoa",
                         "border-2"
-                      );
+                      )
                     }
                   }}
                 />
@@ -80,12 +74,12 @@ const LoginPage = (props) => {
                         e.target.classList.add(
                           "border-orange-sempoa",
                           "border-2"
-                        );
+                        )
                       } else {
                         e.target.classList.remove(
                           "border-orange-sempoa",
                           "border-2"
-                        );
+                        )
                       }
                     }}
                   />
@@ -121,7 +115,7 @@ const LoginPage = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
