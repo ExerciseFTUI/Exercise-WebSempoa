@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import {
   BsArrowLeftShort,
@@ -8,18 +8,18 @@ import {
   BsPencilSquare,
   BsCardHeading,
   BsChevronDown,
-} from "react-icons/bs"
-import { BiPackage } from "react-icons/bi"
-import { IoShirtOutline } from "react-icons/io5"
+} from "react-icons/bs";
+import { BiPackage } from "react-icons/bi";
+import { IoShirtOutline } from "react-icons/io5";
 
-import sempoaLogo from "../assets/sempoa-logo.png"
+import sempoaLogo from "../assets/sempoa-logo.png";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
-  let { pathname } = useLocation()
+  let { pathname } = useLocation();
 
-  const page = pathname.split("/")[2]
+  const page = pathname.split("/")[2];
 
   const Menus = [
     { title: "Daftar Murid", src: "BsPeople" },
@@ -27,9 +27,9 @@ export default function Sidebar() {
     { title: "Barang", src: "BiPackage" },
     { title: "Voucher", src: "BsCardHeading" },
     { title: "Merchandise", src: "IoShirtOutline" },
-  ]
+  ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   /* prettier-ignore */
   return (
