@@ -2,26 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 
-import URL from "../../../utils/link";
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
 
   useEffect(() => {
     getData();
-    // axios
-    //   .get("https://randomuser.me/api/?results=24")
-    //   .then(({ data }) => {
-    //     setMurid(data.results)
-    //     console.log(data.results)
-    //   })
-    //   .catch((error) => console.error(error))
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${URL}murid`);
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/murid`);
     setMurid(data);
-    console.log(data);
   };
 
   return (
@@ -42,31 +33,34 @@ export default function DaftarMurid() {
         </div>
 
         <div className="overflow-x-auto bg-white rounded-3xl">
-          <table className="table w-full">
+        <table className="table w-full">
             {/* head */}
             <thead>
               <tr>
                 <th></th>
-                <th className="normal-case text-lg">Nomor</th>
+                <th className="normal-case text-lg">ID</th>
+                <th className="normal-case text-lg">Kode</th>
                 <th className="normal-case text-lg">Nama</th>
-                <th className="normal-case text-lg">Tanggal Lahir</th>
-                <th className="normal-case text-lg">Terdaftar</th>
-                <th className="normal-case text-lg">Kontak</th>
+                <th className="normal-case text-lg">Jenis Kelamin</th>
+                <th className="normal-case text-lg">Level</th>
+                <th className="normal-case text-lg">Status</th>
               </tr>
             </thead>
-
             <tbody>
-              {/* row */}
-              {murid.map((data, i) => (
-                <tr className="border-hidden hover text-black" key={i}>
-                  <th></th>
-                  <td>{data.id}</td>
-                  <td>{data.nama}</td>
-                  <td>{data.level_sekarang}</td>
-                  <td>{data.pembayaran[0].tanggal.substring(0, 10)}</td>
-                  <td>{data.jenis_kelamin}</td>
-                </tr>
-              ))}
+              {/* row 1 */}
+              {murid.map((data) => {
+                return (
+                  <tr className="border-hidden hover text-black" key={data.id}>
+                    <th></th>
+                    <td>{data.id}</td>
+                    <td>{data.kode}</td>
+                    <td>{data.nama}</td>
+                    <td>{data.jenis_kelamin}</td>
+                    <td>{data.level_sekarang}</td>
+                    <td>{data.status}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
