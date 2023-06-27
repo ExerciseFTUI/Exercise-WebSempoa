@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { CiSearch } from "react-icons/ci"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { CiSearch } from "react-icons/ci";
 
-import URL from "../../../utils/link"
+import URL from "../../../utils/link";
 
 export default function DaftarMurid() {
-  const [murid, setMurid] = useState([])
+  const [murid, setMurid] = useState([]);
 
   useEffect(() => {
-    getData()
+    getData();
     // axios
     //   .get("https://randomuser.me/api/?results=24")
     //   .then(({ data }) => {
@@ -16,14 +16,13 @@ export default function DaftarMurid() {
     //     console.log(data.results)
     //   })
     //   .catch((error) => console.error(error))
-  }, [])
+  }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${URL}murid`)
-
-    setMurid(data)
-    // console.log(data)
-  }
+    const { data } = await axios.get(`${URL}murid`);
+    setMurid(data);
+    console.log(data);
+  };
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -73,5 +72,5 @@ export default function DaftarMurid() {
         </div>
       </div>
     </div>
-  )
+  );
 }
