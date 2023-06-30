@@ -1,19 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
 
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/murid`);
+      setMurid(data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleInputChange = async (e) => {
+    const { value } = e.target;
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/murid/filter-by-nama`,
+        {
+          params: {
+            nama: `${value}`,
+          },
+        }
+      );
+      setMurid(data);
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
-
-  const getData = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/murid`);
-    setMurid(data);
-  };
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -28,12 +48,13 @@ export default function DaftarMurid() {
             type="search"
             className="rounded-3xl px-5 p-2 focus:outline-none"
             placeholder="Search"
+            onChange={handleInputChange}
           />
           <CiSearch className="text-4xl text-white" />
         </div>
 
         <div className="overflow-x-auto bg-white rounded-3xl">
-        <table className="table w-full">
+          <table className="table w-full">
             {/* head */}
             <thead>
               <tr>
@@ -48,19 +69,31 @@ export default function DaftarMurid() {
             </thead>
             <tbody>
               {/* row 1 */}
-              {murid.map((data) => {
-                return (
-                  <tr className="border-hidden hover text-black" key={data.id}>
-                    <th></th>
-                    <td>{data.id}</td>
-                    <td>{data.kode}</td>
-                    <td>{data.nama}</td>
-                    <td>{data.jenis_kelamin}</td>
-                    <td>{data.level_sekarang}</td>
-                    <td>{data.status}</td>
-                  </tr>
-                );
-              })}
+              {murid.length == 0 ? (
+                <tr>
+                  <th></th>
+                  <td colSpan="3"></td>
+                  <td colSpan="2">No results found</td>
+                  <td colSpan="3"></td>
+                </tr>
+              ) : (
+                murid.map((data) => {
+                  return (
+                    <tr
+                      className="border-hidden hover text-black"
+                      key={data.id}
+                    >
+                      <th></th>
+                      <td>{data.id}</td>
+                      <td>{data.kode}</td>
+                      <td>{data.nama}</td>
+                      <td>{data.jenis_kelamin}</td>
+                      <td>{data.level_sekarang}</td>
+                      <td>{data.status}</td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

@@ -1,33 +1,34 @@
-import React, { useState } from "react"
-import sempoaLogo from "../../../assets/sempoa-logo.png"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import React, { useState } from "react";
+import sempoaLogo from "../../../assets/sempoa-logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function Pendaftaran() {
-  const [maleChecked, setMaleChecked] = useState(false)
-  const [femaleChecked, setFemaleChecked] = useState(false)
+  const currentDate = new Date().toISOString().split("T")[0];
+  const [maleChecked, setMaleChecked] = useState(false);
+  const [femaleChecked, setFemaleChecked] = useState(false);
 
   const handleMaleCheckboxChange = (event) => {
-    setMaleChecked(event.target.checked)
+    setMaleChecked(event.target.checked);
     if (event.target.checked) {
-      setFemaleChecked(false)
+      setFemaleChecked(false);
     }
-  }
+  };
 
   const handleFemaleCheckboxChange = (event) => {
-    setFemaleChecked(event.target.checked)
+    setFemaleChecked(event.target.checked);
     if (event.target.checked) {
-      setMaleChecked(false)
+      setMaleChecked(false);
     }
-  }
+  };
 
   let id = Math.floor(Math.random() * 1000);
   const [muridObj, setMuridObj] = useState({
     id: id++,
     kode: id++ * 100,
     nama: "",
-    jenis_kelamin: "Laki-laki",
+    jenis_kelamin: "",
     level_sekarang: "",
     pembayaran: null,
     status: "",
@@ -37,9 +38,11 @@ export default function Pendaftaran() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
     setMuridObj((prevObject) => ({
       ...prevObject,
       [name]: value,
+      jenis_kelamin: gender,
     }));
   };
 
@@ -49,10 +52,20 @@ export default function Pendaftaran() {
         `${import.meta.env.VITE_API_URL}/murid/create`,
         muridObj
       );
-      console.log("Response:", response.data);
+      alert("Response: Success");
     } catch (error) {
-      console.error("Error:", error.message);
+      alert("Error: Please fill out all the fields");
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -77,6 +90,7 @@ export default function Pendaftaran() {
               type="date"
               name="regis_date"
               id="regis_date"
+              value={currentDate}
               className="w-[480px] h-12 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
             />
           </label>
@@ -393,5 +407,5 @@ export default function Pendaftaran() {
         </button>
       </div>
     </div>
-  )
+  );
 }
