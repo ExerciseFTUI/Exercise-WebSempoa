@@ -3,6 +3,7 @@ import sempoaLogo from "../../../assets/sempoa-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import URL from "../../../utils/link";
 
 export default function Pendaftaran() {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -49,7 +50,7 @@ export default function Pendaftaran() {
   const createMurid = async () => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/murid/create`,
+        `${URL}/murid/create`,
         muridObj
       );
       alert("Response: Success");

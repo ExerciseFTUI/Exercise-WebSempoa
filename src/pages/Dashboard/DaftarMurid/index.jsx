@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
+import URL from "../../../utils/link";
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
 
   const getData = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/murid`);
+      const { data } = await axios.get(`${URL}/murid`);
       setMurid(data);
     } catch (error) {
       alert(error);
@@ -18,7 +19,7 @@ export default function DaftarMurid() {
     const { value } = e.target;
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/murid/filter-by-nama`,
+        `${URL}/murid/filter-by-nama`,
         {
           params: {
             nama: `${value}`,
