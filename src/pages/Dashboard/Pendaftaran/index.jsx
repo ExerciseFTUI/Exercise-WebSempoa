@@ -1,25 +1,73 @@
-import React, { useState } from "react"
-import sempoaLogo from "../../../assets/sempoa-logo.png"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import React, { useState } from "react";
+import sempoaLogo from "../../../assets/sempoa-logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import URL from "../../../utils/link";
 
 export default function Pendaftaran() {
-  const [maleChecked, setMaleChecked] = useState(false)
-  const [femaleChecked, setFemaleChecked] = useState(false)
+  const currentDate = new Date().toISOString().split("T")[0];
+  const [maleChecked, setMaleChecked] = useState(false);
+  const [femaleChecked, setFemaleChecked] = useState(false);
 
   const handleMaleCheckboxChange = (event) => {
-    setMaleChecked(event.target.checked)
+    setMaleChecked(event.target.checked);
     if (event.target.checked) {
-      setFemaleChecked(false)
+      setFemaleChecked(false);
     }
-  }
+  };
 
   const handleFemaleCheckboxChange = (event) => {
-    setFemaleChecked(event.target.checked)
+    setFemaleChecked(event.target.checked);
     if (event.target.checked) {
-      setMaleChecked(false)
+      setMaleChecked(false);
     }
-  }
+  };
+
+  let id = Math.floor(Math.random() * 1000);
+  const [muridObj, setMuridObj] = useState({
+    id: id++,
+    kode: id++ * 100,
+    nama: "",
+    jenis_kelamin: "",
+    level_sekarang: "",
+    pembayaran: null,
+    status: "",
+    profile: "https://example.com/profile.jpg",
+    cabang: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
+    setMuridObj((prevObject) => ({
+      ...prevObject,
+      [name]: value,
+      jenis_kelamin: gender,
+    }));
+  };
+
+  const createMurid = async () => {
+    try {
+      const response = await axios.post(
+        `${URL}/murid/create`,
+        muridObj
+      );
+      alert("Response: Success");
+    } catch (error) {
+      alert("Error: Please fill out all the fields");
+    }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="flex-auto bg-[#ed7336]">
@@ -43,6 +91,7 @@ export default function Pendaftaran() {
               type="date"
               name="regis_date"
               id="regis_date"
+              value={currentDate}
               className="w-[480px] h-12 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
             />
           </label>
@@ -58,6 +107,7 @@ export default function Pendaftaran() {
                   value=""
                   className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
                   checked={maleChecked}
+                  name="jenis_kelamin"
                   onChange={handleMaleCheckboxChange}
                 />
                 <FontAwesomeIcon
@@ -76,6 +126,7 @@ export default function Pendaftaran() {
                   value=""
                   className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
                   checked={femaleChecked}
+                  name="jenis_kelamin"
                   onChange={handleFemaleCheckboxChange}
                 />
                 <FontAwesomeIcon
@@ -94,24 +145,28 @@ export default function Pendaftaran() {
             </span>
             <input
               type="text"
-              name="name"
+              name="nama"
               id="name"
               className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
+              value={muridObj.nama}
+              onChange={handleInputChange}
             />
           </label>
           <label
-            id="nickname"
+            id="level"
             className="flex flex-col space-y-3 absolute right-0"
             dir="rtl"
           >
             <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Nickname
+              Level
             </span>
             <input
               type="text"
-              name="nickname"
-              id="nickname"
+              name="level_sekarang"
+              id="level"
               className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
+              value={muridObj.level_sekarang}
+              onChange={handleInputChange}
             />
           </label>
         </div>
@@ -128,25 +183,27 @@ export default function Pendaftaran() {
             />
           </label>
           <label
-            id="place_of_birth"
+            id="status"
             className="flex flex-col space-y-3 absolute right-0"
             dir="rtl"
           >
             <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Place of Birth
+              Status
             </span>
             <input
               type="text"
-              name="place_of_birth"
-              id="place_of_birth"
+              name="status"
+              id="status"
               className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
+              value={muridObj.status}
+              onChange={handleInputChange}
             />
           </label>
         </div>
         <div className="flex flex-row space-x-8 text-xl relative">
           <label id="parent_name" className="flex flex-col space-y-3">
             <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Parent/Guardian Name
+              Profile
             </span>
             <input
               type="text"
@@ -343,7 +400,13 @@ export default function Pendaftaran() {
             />
           </label>
         </div>
+        <button
+          className="bg-orange-sempoa w-[264px] text-center mx-auto p-2 rounded-3xl text-xl"
+          onClick={createMurid}
+        >
+          Submit
+        </button>
       </div>
     </div>
-  )
+  );
 }
