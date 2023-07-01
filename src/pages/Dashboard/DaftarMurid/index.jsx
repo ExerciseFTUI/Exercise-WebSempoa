@@ -8,7 +8,7 @@ export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
 
   useEffect(() => {
-    getData();
+    // g
     // axios
     //   .get("https://randomuser.me/api/?results=24")
     //   .then(({ data }) => {
@@ -19,7 +19,7 @@ export default function DaftarMurid() {
   }, []);
 
   const getData = async () => {
-    const { data } = await axios.get(`${URL}murid`);
+    const { data } = await axios.get(`${URL}/murid`);
     setMurid(data);
     console.log(data);
   };

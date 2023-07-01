@@ -1,10 +1,12 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import sempoaLogo from "../../assets/sempoa-logo.png"
+import sempoaLogo from "../../assets/sempoa-logo.png";
+import axios from "axios";
+import URL from "../../utils/link";
 
 export default function PilihCabang() {
-  const cabang = [
+  const cabangs = [
     {
       kota: "Kota",
       nama: "Nama Cabang",
@@ -115,7 +117,21 @@ export default function PilihCabang() {
       nama: "Nama Cabang",
       status: "Status Cabang",
     },
-  ]
+  ];
+
+  const [cabang, setCabang] = useState([]);
+
+  const getData = async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/cabang/getAllCabang`
+    );
+    console.log(data.data);
+    setCabang(data.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div id="cabang-page" className="h-screen overflow-x-hidden">
@@ -137,13 +153,13 @@ export default function PilihCabang() {
         {cabang.map((c, i) => (
           <Link key={i} to={`/dashboard/daftar-murid`}>
             <div className="flex-col relative h-60 w-60 rounded-[3rem] bg-white hover:bg-orange-sempoa font-inter text-orange-sempoa hover:text-white border-[3px] border-orange-sempoa cursor-pointer p-8 space-y-1.5">
-              <h2 className="text-xl font-bold">{c.kota + " " + (i + 1)}</h2>
-              <h2 className="text-xl font-bold">{c.nama}</h2>
-              <p className="text-md absolute bottom-8">{c.status}</p>
+              <h2 className="text-xl font-bold">{"Kota " + " " + (i + 1)}</h2>
+              <h2 className="text-xl font-bold">{c.namaCabang}</h2>
+              <p className="text-md absolute bottom-8">{"Status"}</p>
             </div>
           </Link>
         ))}
       </div>
     </div>
-  )
+  );
 }
