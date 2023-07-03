@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-import URL from "../../../utils/link";
 
 export default function DaftarMurid() {
+  const URL = import.meta.env.VITE_API_URL;
   const [murid, setMurid] = useState([]);
 
   const getData = async () => {

@@ -17,32 +17,35 @@ import DataBuku from "./pages/Dashboard/Barang/DataBuku";
 import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan";
 
 import "./index.css";
+import { UserContextProvider } from "./components/Contexts/UserContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="cabang" element={<PilihCabang />} />
+      <UserContextProvider>
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="cabang" element={<PilihCabang />} />
 
-        <Route path="/" element={<App />}>
-          <Route path="dashboard/" element={<Dashboard />}>
-            <Route path="daftar-murid" element={<DaftarMurid />} />
-            <Route path="pendaftaran" element={<Pendaftaran />} />
+          <Route path="/" element={<App />}>
+            <Route path="dashboard/" element={<Dashboard />}>
+              <Route path="daftar-murid" element={<DaftarMurid />} />
+              <Route path="pendaftaran" element={<Pendaftaran />} />
 
-            <Route path="barang/" element={<Barang />}>
-              <Route path="pemesanan" element={<DataPemesanan />} />
-              <Route path="buku" element={<DataBuku />} />
+              <Route path="barang/" element={<Barang />}>
+                <Route path="pemesanan" element={<DataPemesanan />} />
+                <Route path="buku" element={<DataBuku />} />
+              </Route>
+
+              <Route path="voucher" element={<Voucher />} />
+              <Route path="merchandise" element={<Merchandise />} />
             </Route>
-
-            <Route path="voucher" element={<Voucher />} />
-            <Route path="merchandise" element={<Merchandise />} />
           </Route>
-        </Route>
 
-        {/* Wildcard route outside the nested routes */}
-        <Route path="/*" element={<Navigate to="/login" />} />
-      </Routes>
+          {/* Wildcard route outside the nested routes */}
+          <Route path="/*" element={<Navigate to="/login" />} />
+        </Routes>
+      </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
