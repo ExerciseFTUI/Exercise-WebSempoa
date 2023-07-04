@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 import {
   BsArrowLeftShort,
@@ -8,28 +8,28 @@ import {
   BsPencilSquare,
   BsCardHeading,
   BsChevronDown,
-} from "react-icons/bs";
-import { BiPackage } from "react-icons/bi";
-import { IoShirtOutline } from "react-icons/io5";
+} from "react-icons/bs"
+import { BiPackage } from "react-icons/bi"
+import { IoShirtOutline } from "react-icons/io5"
 
-import sempoaLogo from "../assets/sempoa-logo.png";
+import sempoaLogo from "../assets/sempoa-logo.png"
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(true)
 
-  let { pathname } = useLocation();
+  let { pathname } = useLocation()
 
-  const page = pathname.split("/")[2];
+  const page = pathname.split("/")[2]
 
   const Menus = [
-    { title: "Daftar Murid", src: "BsPeople" },
+    { title: "Daftar Civitas", src: "BsPeople" },
     { title: "Pendaftaran", src: "BsPencilSquare" },
     { title: "Barang", src: "BiPackage" },
     { title: "Voucher", src: "BsCardHeading" },
     { title: "Merchandise", src: "IoShirtOutline" },
-  ];
+  ]
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   /* prettier-ignore */
   return (
@@ -53,7 +53,15 @@ export default function Sidebar() {
           const Icon = eval(src)
           const id = title.toLowerCase().replace(" ", "-")
 
-          const link = id == "barang" ? `/dashboard/barang/pemesanan` : `/dashboard/${id}`
+        //   const link = id == "barang" ? `/dashboard/barang/pemesanan` : `/dashboard/${id}`
+          let link = ""
+
+          if (id == "barang")
+            link = "/dashboard/barang/pemesanan"
+          else if (id == "daftar-civitas")
+            link = "/dashboard/daftar-civitas/murid"
+          else
+            link = `/dashboard/${id}`
 
           const handleClick = () =>
             navigate(link, { state: { relative: true } })
