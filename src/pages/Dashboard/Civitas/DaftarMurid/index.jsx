@@ -1,48 +1,42 @@
-import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
-import { CiSearch } from "react-icons/ci";
-import URL from "../../../utils/link";
+import { useState, useEffect, useMemo } from "react"
+import axios from "axios"
+
+import { CiSearch } from "react-icons/ci"
+
+import URL from "../../../../utils/link"
 
 export default function DaftarMurid() {
-  const [murid, setMurid] = useState([]);
+  const [murid, setMurid] = useState([])
 
   const getData = async () => {
     try {
-      const { data } = await axios.get(`${URL}/murid`);
-      setMurid(data);
+      const { data } = await axios.get(`${URL}/murid`)
+      setMurid(data)
     } catch (error) {
-      alert(error);
+      alert(error)
     }
-  };
+  }
 
   const handleInputChange = async (e) => {
-    const { value } = e.target;
+    const { value } = e.target
     try {
-      const { data } = await axios.get(
-        `${URL}/murid/filter-by-nama`,
-        {
-          params: {
-            nama: `${value}`,
-          },
-        }
-      );
-      setMurid(data);
+      const { data } = await axios.get(`${URL}/murid/filter-by-nama`, {
+        params: {
+          nama: `${value}`,
+        },
+      })
+      setMurid(data)
     } catch (error) {
-      alert("Something went wrong");
+      alert("Something went wrong")
     }
-  };
+  }
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
-      <div className="bg-orange-darker font-Inter text-white p-6 px-12 space-y-2">
-        <h1 className="font-bold text-2xl">Cabang A</h1>
-        <h2 className="font-extralight text-md">Kota, Provinsi</h2>
-      </div>
-
       <div className="px-12 p-6 space-y-6">
         <div className="flex flex-row items-center space-x-2">
           <input
@@ -78,12 +72,9 @@ export default function DaftarMurid() {
                   <td colSpan="3"></td>
                 </tr>
               ) : (
-                murid.map((data) => {
+                murid.map((data, i) => {
                   return (
-                    <tr
-                      className="border-hidden hover text-black"
-                      key={data.id}
-                    >
+                    <tr key={i} className="border-hidden hover text-black">
                       <th></th>
                       <td>{data.id}</td>
                       <td>{data.kode}</td>
@@ -92,7 +83,7 @@ export default function DaftarMurid() {
                       <td>{data.level_sekarang}</td>
                       <td>{data.status}</td>
                     </tr>
-                  );
+                  )
                 })
               )}
             </tbody>
@@ -100,5 +91,5 @@ export default function DaftarMurid() {
         </div>
       </div>
     </div>
-  );
+  )
 }
