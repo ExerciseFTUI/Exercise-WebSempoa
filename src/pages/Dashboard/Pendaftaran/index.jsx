@@ -8,14 +8,18 @@ export default function Pendaftaran() {
 
   const handleMaleCheckboxChange = (event) => {
     setMaleChecked(event.target.checked);
+    setMaleChecked(event.target.checked);
     if (event.target.checked) {
+      setFemaleChecked(false);
       setFemaleChecked(false);
     }
   };
 
   const handleFemaleCheckboxChange = (event) => {
     setFemaleChecked(event.target.checked);
+    setFemaleChecked(event.target.checked);
     if (event.target.checked) {
+      setMaleChecked(false);
       setMaleChecked(false);
     }
   };
