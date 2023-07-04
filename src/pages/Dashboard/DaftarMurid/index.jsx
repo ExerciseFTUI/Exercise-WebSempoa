@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
+import { UserContext } from "../../../components/Contexts/UserContext";
 
 export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL;
   const [murid, setMurid] = useState([]);
+
+  const { cabangId } = useContext(UserContext);
 
   const getData = async () => {
     try {

@@ -20,10 +20,16 @@ export const UserContextProvider = ({ children }) => {
         username: username,
         password: password,
       });
-      // const user = data;
-      // setUser(user);
-      // setIsLoggedIn(true);
-      console.log(data);
+      const user = data;
+      setUser(user);
+      setIsLoggedIn(true);
+
+      if (data.role === "IBO") {
+        navigate("/cabang");
+      } else {
+        navigate("/dashboard/daftar-murid");
+        setCabangId(data.cabangId);
+      }
     } catch (error) {
       console.error("Error: ", error.response.data.message);
     }

@@ -7,6 +7,7 @@ import URL from "../../utils/link";
 import { UserContext } from "../../components/Contexts/UserContext";
 
 export default function PilihCabang() {
+  const URL = import.meta.env.VITE_API_URL;
   //Global State
   const { cabangId, setCabangId } = useContext(UserContext);
 
@@ -128,10 +129,8 @@ export default function PilihCabang() {
   const navigate = useNavigate();
 
   const getData = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/cabang/getAllCabang`
-    );
-    console.log(data.data);
+    const { data } = await axios.get(`${URL}/cabang/getAllCabang`);
+
     setCabang(data.data);
   };
 
@@ -163,6 +162,7 @@ export default function PilihCabang() {
       <div className="flex flex-wrap justify-start gap-6 w-screen p-24">
         {cabang.map((c, i) => (
           <div
+            key={c._id}
             className="flex-col relative h-60 w-60 rounded-[3rem] bg-white hover:bg-orange-sempoa font-inter text-orange-sempoa hover:text-white border-[3px] border-orange-sempoa cursor-pointer p-8 space-y-1.5"
             onClick={() => handleClick(c._id)}
           >
