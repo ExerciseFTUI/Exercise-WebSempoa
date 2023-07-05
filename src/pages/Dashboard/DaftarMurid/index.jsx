@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-import URL from "../../../utils/link";
+import { UserContext } from "../../../components/Contexts/UserContext";
+
 
 export default function DaftarMurid() {
+  const URL = import.meta.env.VITE_API_URL;
   const [murid, setMurid] = useState([]);
-  const cabang = "64a28477375fdbc5e44c8671"
+
+  const { cabangId } = useContext(UserContext);
+
 
   const getData = async () => {
     try {
@@ -24,7 +29,7 @@ export default function DaftarMurid() {
         {
           params: {
             nama: `${value}`,
-            cabang: `${cabang}`,
+            cabang: `${cabangId}`,
           },
         }
       );

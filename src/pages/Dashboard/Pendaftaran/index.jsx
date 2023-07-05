@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import sempoaLogo from "../../../assets/sempoa-logo.png";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import URL from "../../../utils/link";
+import { UserContext } from "../../../components/Contexts/UserContext";
 
 export default function Pendaftaran() {
-  const currentDate = new Date().toISOString().split("T")[0];
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
-  const cabang = "64a28477375fdbc5e44c8671"
+  const { cabangId } = useContext(UserContext);
 
   const handleMaleCheckboxChange = (event) => {
     setMaleChecked(event.target.checked);
@@ -35,7 +32,7 @@ export default function Pendaftaran() {
     pembayaran: null,
     status: "",
     profile: "https://example.com/profile.jpg",
-    cabang: cabang,
+    cabang: cabangId,
   });
 
   const handleInputChange = (e) => {
@@ -60,354 +57,62 @@ export default function Pendaftaran() {
     }
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <div className="flex-auto bg-[#ed7336]">
-      <div className="flex flex-row font-Inter p-6 space-y-2">
-        <div className="w-fit h-fit bg-[#FAFAFA] p-2 px-h-12 text-xl rounded-3xl text-orange-sempoa border-2 border-orange-sempoa">
-          Registration Form
+    <div className="flex-auto bg-orange-sempoa">
+      <div className="flex justify-between items-center bg-orange-darker font-Inter text-white p-6 px-12">
+        <div className="space-y-2">
+          <h1 className="font-bold text-2xl">Cabang A</h1>
+          <h2 className="font-extralight text-md">Kota, Provinsi</h2>
         </div>
-        <img
-          src={sempoaLogo}
-          className="w-48 absolute -top-5 end-5"
-          alt="logo"
-        />
+        <span className="text-3xl font-bold">Pendaftaran</span>
       </div>
-      <div className="flex flex-col m-6 p-6 space-y-5 bg-[#FAFAFA] rounded-2xl">
-        <div className="flex flex-row text-xl relative h-16">
-          <label id="regis_date" className="flex flex-row space-x-8">
-            <span className="w-[264px] h-12 p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Registration Date
-            </span>
-            <input
-              type="date"
-              name="regis_date"
-              id="regis_date"
-              value={currentDate}
-              className="w-[480px] h-12 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <div className="w-[264px] h-12 border-2 border-orange-sempoa rounded-3xl absolute right-0">
-            <div class="flex items-center p-2 px-3 space-x-16">
-              <label
-                htmlFor="male-checkbox"
-                className="cursor-pointer relative text-orange-sempoa"
-              >
-                <input
-                  id="male-checkbox"
-                  type="checkbox"
-                  value=""
-                  className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
-                  checked={maleChecked}
-                  name="jenis_kelamin"
-                  onChange={handleMaleCheckboxChange}
-                />
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition"
-                />
+      <div className="grid grid-cols-7 gap-y-6 m-6 p-6 bg-[#FAFAFA] rounded-2xl text-lg items-center">
+        <span>Registration Date</span>
+        <input type="date" name="regis_date" id="regis_date" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+        <div className="col-span-4 flex items-center justify-end">
+          <div className="border-2 border-orange-sempoa rounded-3xl">
+            <div className="flex items-center p-2 px-3 space-x-16">
+              <label htmlFor="male-checkbox" className="cursor-pointer relative text-orange-sempoa">
+                <input id="male-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" checked={maleChecked} onChange={handleMaleCheckboxChange} />
+                <FontAwesomeIcon icon={faCheck} className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition" />
                 <span className="ml-2">Male</span>
               </label>
-              <label
-                htmlFor="female-checkbox"
-                className="cursor-pointer relative text-orange-sempoa"
-              >
-                <input
-                  id="female-checkbox"
-                  type="checkbox"
-                  value=""
-                  className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
-                  checked={femaleChecked}
-                  name="jenis_kelamin"
-                  onChange={handleFemaleCheckboxChange}
-                />
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition"
-                />
+              <label htmlFor="female-checkbox" className="cursor-pointer relative text-orange-sempoa">
+                <input id="female-checkbox" type="checkbox" value="" className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa" checked={femaleChecked} onChange={handleFemaleCheckboxChange} />
+                <FontAwesomeIcon icon={faCheck} className="h-5 w-5 text-orange-sempoa absolute left-0 top-0 text-opacity-0 check-1 transition" />
                 <span className="ml-2">Female</span>
               </label>
             </div>
           </div>
         </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="name" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Name
-            </span>
-            <input
-              type="text"
-              name="nama"
-              id="name"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-              value={muridObj.nama}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label
-            id="level"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Level
-            </span>
-            <input
-              type="text"
-              name="level_sekarang"
-              id="level"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-              value={muridObj.level_sekarang}
-              onChange={handleInputChange}
-            />
-          </label>
+        <div className="grid grid-cols-3 col-span-3 gap-y-6 items-center">
+          <span>Name</span>
+          <input type="text" name="name" id="name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>Date of Birth</span>
+          <input type="date" name="date_of_birth" id="date_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>Parent/Guradian Name</span>
+          <input type="text" name="parent_name" id="parent_name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>Address</span>
+          <textarea name="address" id="address" className="row-span-5 col-span-2 h-full p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" style={{ resize: "none" }} />
         </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="date_of_birth" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Date of Birth
-            </span>
-            <input
-              type="date"
-              name="date_of_birth"
-              id="date_of_birth"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="status"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Status
-            </span>
-            <input
-              type="text"
-              name="status"
-              id="status"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-              value={muridObj.status}
-              onChange={handleInputChange}
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="parent_name" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Profile
-            </span>
-            <input
-              type="text"
-              name="parent_name"
-              id="parent_name"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="relation"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Relationship to Student
-            </span>
-            <input
-              type="text"
-              name="relation"
-              id="relation"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="address" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Address
-            </span>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="city"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              City
-            </span>
-            <input
-              type="text"
-              name="city"
-              id="city"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="primary_phone" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Primary Phone
-            </span>
-            <input
-              type="text"
-              name="primary_phone"
-              id="primary_phone"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="secondary_phone"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Secondary Phone
-            </span>
-            <input
-              type="text"
-              name="secondary_phone"
-              id="secondary_phone"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label
-            id="person_enrolling_student"
-            className="flex flex-col space-y-3"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Person Enrolling Student
-            </span>
-            <input
-              type="text"
-              name="person_enrolling_student"
-              id="person_enrolling_student"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="registered_by"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Registered By
-            </span>
-            <input
-              type="text"
-              name="registered_by"
-              id="registered_by"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="w-full h-12 bg-orange-sempoa rounded-3xl" />
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="id_number" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Student ID Number
-            </span>
-            <input
-              type="text"
-              name="id_number"
-              id="id_number"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="grade_placement"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Initial Grade Placement
-            </span>
-            <input
-              type="text"
-              name="grade_placement"
-              id="grade_placement"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="date_of_entrance" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Date of Entrance
-            </span>
-            <input
-              type="text"
-              name="date_of_entrance"
-              id="date_of_entrance"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="class_schedule"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Class Schedule
-            </span>
-            <input
-              type="text"
-              name="class_schedule"
-              id="class_schedule"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <div className="flex flex-row space-x-8 text-xl relative">
-          <label id="registration_fee" className="flex flex-col space-y-3">
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Registration Fee
-            </span>
-            <input
-              type="text"
-              name="registration_fee"
-              id="registration_fee"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-          <label
-            id="teacher_assigned"
-            className="flex flex-col space-y-3 absolute right-0"
-            dir="rtl"
-          >
-            <span className="w-[264px] h-fit p-2 flex items-center justify-center bg-orange-sempoa rounded-3xl border-2 border-orange-sempoa">
-              Teacher Assigned
-            </span>
-            <input
-              type="text"
-              name="teacher_assigned"
-              id="teacher_assigned"
-              className="w-[548px] h-fit p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"
-            />
-          </label>
-        </div>
-        <button
-          className="bg-orange-sempoa w-[264px] text-center mx-auto p-2 rounded-3xl text-xl"
-          onClick={createMurid}
-        >
-          Submit
-        </button>
+        <div className="h-full w-[1px] bg-slate-200 justify-self-center"></div>
+        <div className="grid grid-cols-3 col-span-3 gap-y-6 items-center">
+          <span>Nickname</span>
+          <input type="text" name="nickname" id="nickname" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
 
+          <span>Place of Birth</span>
+          <input type="text" name="place_of_birth" id="place_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+
+          <span>Relationship to Student</span>
+          <input type="text" name="relation" id="relation" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>City</span>
+          <input type="text" name="city" id="city" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>Province</span>
+          <input type="text" name="province" id="province" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+        </div>
+        <span>Postal Code</span>
+        <input type="number" name="postal_code" id="postal_code" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+        <button className="col-span-7 m-6 btn bg-orange-sempoa text-white hover:bg-orange-darker w-32 justify-self-center">Submit</button>
       </div>
     </div>
   );
