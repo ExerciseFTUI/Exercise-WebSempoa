@@ -7,12 +7,16 @@ import Dashboard from "./pages/Dashboard";
 import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/Login";
 import PilihCabang from "./pages/PilihCabang";
-import Barang from "./pages/Dashboard/Barang";
 
 import Voucher from "./pages/Dashboard/Voucher";
 import Merchandise from "./pages/Dashboard/Merchandise";
-import DaftarMurid from "./pages/Dashboard/DaftarMurid";
 import Pendaftaran from "./pages/Dashboard/Pendaftaran";
+
+import Civitas from "./pages/Dashboard/Civitas";
+import DaftarMurid from "./pages/Dashboard/Civitas/DaftarMurid";
+import DaftarGuru from "./pages/Dashboard/Civitas/DaftarGuru";
+
+import Barang from "./pages/Dashboard/Barang";
 import DataBuku from "./pages/Dashboard/Barang/DataBuku";
 import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan";
 
@@ -29,7 +33,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
           <Route path="/" element={<App />}>
             <Route path="dashboard/" element={<Dashboard />}>
-              <Route path="daftar-murid" element={<DaftarMurid />} />
+              <Route path="daftar-civitas/" element={<Civitas />}>
+                <Route path="murid" element={<DaftarMurid />} />
+                <Route path="guru" element={<DaftarGuru />} />
+              </Route>
+
               <Route path="pendaftaran" element={<Pendaftaran />} />
 
               <Route path="barang/" element={<Barang />}>

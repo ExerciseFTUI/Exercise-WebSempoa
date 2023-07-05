@@ -1,9 +1,7 @@
-
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-import { UserContext } from "../../../components/Contexts/UserContext";
-
+import { UserContext } from "../../../../components/Contexts/UserContext";
 
 export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL;
@@ -40,11 +38,6 @@ export default function DaftarMurid() {
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
-      <div className="bg-orange-darker font-Inter text-white p-6 px-12 space-y-2">
-        <h1 className="font-bold text-2xl">Cabang A</h1>
-        <h2 className="font-extralight text-md">Kota, Provinsi</h2>
-      </div>
-
       <div className="px-12 p-6 space-y-6">
         <div className="flex flex-row items-center space-x-2">
           <input
@@ -80,12 +73,9 @@ export default function DaftarMurid() {
                   <td colSpan="3"></td>
                 </tr>
               ) : (
-                murid.map((data) => {
+                murid.map((data, i) => {
                   return (
-                    <tr
-                      className="border-hidden hover text-black"
-                      key={data.id}
-                    >
+                    <tr key={i} className="border-hidden hover text-black">
                       <th></th>
                       <td>{data.id}</td>
                       <td>{data.kode}</td>
