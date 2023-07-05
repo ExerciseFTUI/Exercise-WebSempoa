@@ -140,7 +140,7 @@ export default function PilihCabang() {
 
   const handleClick = (id) => {
     setCabangId(id);
-    navigate("/dashboard/daftar-murid");
+    navigate("/dashboard/daftar-civitas/murid");
   };
 
   return (
