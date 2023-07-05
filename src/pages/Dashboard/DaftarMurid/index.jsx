@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
+
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-import URL from "../../../utils/link";
+import { UserContext } from "../../../components/Contexts/UserContext";
+
 
 export default function DaftarMurid() {
+  const URL = import.meta.env.VITE_API_URL;
   const [murid, setMurid] = useState([]);
+
+  const { cabangId } = useContext(UserContext);
 
   const getData = async () => {
     try {
@@ -18,14 +23,11 @@ export default function DaftarMurid() {
   const handleInputChange = async (e) => {
     const { value } = e.target;
     try {
-      const { data } = await axios.get(
-        `${URL}/murid/filter-by-nama`,
-        {
-          params: {
-            nama: `${value}`,
-          },
-        }
-      );
+      const { data } = await axios.get(`${URL}/murid/filter-by-nama`, {
+        params: {
+          nama: `${value}`,
+        },
+      });
       setMurid(data);
     } catch (error) {
       alert("Something went wrong");
