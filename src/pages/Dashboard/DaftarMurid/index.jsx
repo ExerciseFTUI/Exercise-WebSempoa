@@ -5,6 +5,7 @@ import URL from "../../../utils/link";
 
 export default function DaftarMurid() {
   const [murid, setMurid] = useState([]);
+  const cabang = "64a28477375fdbc5e44c8671"
 
   const getData = async () => {
     try {
@@ -23,6 +24,7 @@ export default function DaftarMurid() {
         {
           params: {
             nama: `${value}`,
+            cabang: `${cabang}`,
           },
         }
       );

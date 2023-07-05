@@ -9,6 +9,7 @@ export default function Pendaftaran() {
   const currentDate = new Date().toISOString().split("T")[0];
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
+  const cabang = "64a28477375fdbc5e44c8671"
 
   const handleMaleCheckboxChange = (event) => {
     setMaleChecked(event.target.checked);
@@ -34,7 +35,7 @@ export default function Pendaftaran() {
     pembayaran: null,
     status: "",
     profile: "https://example.com/profile.jpg",
-    cabang: "64a28477375fdbc5e44c8671",
+    cabang: cabang,
   });
 
   const handleInputChange = (e) => {
@@ -406,7 +407,7 @@ export default function Pendaftaran() {
         >
           Submit
         </button>
-        
+
       </div>
     </div>
   );
