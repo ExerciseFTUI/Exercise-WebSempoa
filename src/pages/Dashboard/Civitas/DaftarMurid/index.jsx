@@ -1,39 +1,40 @@
-import { useState, useEffect, useMemo } from "react"
-import axios from "axios"
-
-import { CiSearch } from "react-icons/ci"
-
-import URL from "../../../../utils/link"
+import React, { useState, useEffect, useMemo, useContext } from "react";
+import axios from "axios";
+import { CiSearch } from "react-icons/ci";
+import { UserContext } from "../../../../components/Contexts/UserContext";
 
 export default function DaftarMurid() {
-  const [murid, setMurid] = useState([])
+  const URL = import.meta.env.VITE_API_URL;
+  const [murid, setMurid] = useState([]);
+
+  const { cabangId } = useContext(UserContext);
 
   const getData = async () => {
     try {
-      const { data } = await axios.get(`${URL}/murid`)
-      setMurid(data)
+      const { data } = await axios.get(`${URL}/murid`);
+      setMurid(data);
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   const handleInputChange = async (e) => {
-    const { value } = e.target
+    const { value } = e.target;
     try {
       const { data } = await axios.get(`${URL}/murid/filter-by-nama`, {
         params: {
           nama: `${value}`,
         },
-      })
-      setMurid(data)
+      });
+      setMurid(data);
     } catch (error) {
-      alert("Something went wrong")
+      alert("Something went wrong");
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -83,7 +84,7 @@ export default function DaftarMurid() {
                       <td>{data.level_sekarang}</td>
                       <td>{data.status}</td>
                     </tr>
-                  )
+                  );
                 })
               )}
             </tbody>
@@ -91,5 +92,5 @@ export default function DaftarMurid() {
         </div>
       </div>
     </div>
-  )
+  );
 }
