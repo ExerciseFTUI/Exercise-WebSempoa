@@ -11,6 +11,7 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [cabangId, setCabangId] = useState();
+  const [namaCabang, setNamaCabang] = useState("Cabang Sempoa");
 
   const navigate = useNavigate();
 
@@ -41,6 +42,8 @@ export const UserContextProvider = ({ children }) => {
     cabangId,
     setCabangId,
     login,
+    namaCabang,
+    setNamaCabang,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

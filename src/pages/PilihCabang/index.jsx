@@ -10,6 +10,7 @@ export default function PilihCabang() {
   const URL = import.meta.env.VITE_API_URL;
   //Global State
   const { cabangId, setCabangId } = useContext(UserContext);
+  const { namaCabang, setNamaCabang } = useContext(UserContext);
 
   const cabangs = [
     {
@@ -138,8 +139,9 @@ export default function PilihCabang() {
     getData();
   }, []);
 
-  const handleClick = (id) => {
+  const handleClick = (id, nama) => {
     setCabangId(id);
+    setNamaCabang(nama);
     navigate("/dashboard/daftar-civitas/murid");
   };
 
@@ -164,7 +166,7 @@ export default function PilihCabang() {
           <div
             key={c._id}
             className="flex-col relative h-60 w-60 rounded-[3rem] bg-white hover:bg-orange-sempoa font-inter text-orange-sempoa hover:text-white border-[3px] border-orange-sempoa cursor-pointer p-8 space-y-1.5"
-            onClick={() => handleClick(c._id)}
+            onClick={() => handleClick(c._id, c.namaCabang)}
           >
             <h2 className="text-xl font-bold">{"Kota " + " " + (i + 1)}</h2>
             <h2 className="text-xl font-bold">{c.namaCabang}</h2>

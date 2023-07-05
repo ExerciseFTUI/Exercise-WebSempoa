@@ -1,13 +1,16 @@
 import { Link, Outlet, useLocation } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "../../../components/Contexts/UserContext"
 
 export default function Barang() {
   const page = useLocation().pathname.split("/")[3]
+  const {namaCabang} = useContext(UserContext)
 
   return (
     <div className="bg-orange-sempoa flex-auto">
       <div className="bg-orange-darker font-Inter text-white py-6 px-12 flex justify-between">
         <div className="space-y-2">
-          <h1 className="font-bold text-2xl">Cabang A</h1>
+          <h1 className="font-bold text-2xl">{namaCabang}</h1>
           <h2 className="font-extralight text-md">Kota, Provinsi</h2>
         </div>
 

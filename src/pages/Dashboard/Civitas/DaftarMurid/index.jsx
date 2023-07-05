@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import { UserContext } from "../../../../components/Contexts/UserContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL;
@@ -9,32 +11,64 @@ export default function DaftarMurid() {
 
   const { cabangId } = useContext(UserContext);
 
-  const getData = async () => {
-    try {
-      const { data } = await axios.get(`${URL}/murid`);
-      setMurid(data);
-    } catch (error) {
-      alert(error);
-    }
-  };
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios.get(`${URL}/murid`, {
+          params: {
+            cabang: `${cabangId}`,
+          },
+        });
+        setMurid(data);
+      } catch (error) {
+        toast.warn('No Data Found!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    };
+    console.log("Hello from DaftarMurid");
+    getData();
+  }, []);
 
   const handleInputChange = async (e) => {
     const { value } = e.target;
     try {
-      const { data } = await axios.get(`${URL}/murid/filter-by-nama`, {
-        params: {
-          nama: `${value}`,
-        },
-      });
+      const { data } = await axios.get(
+        `${URL}/murid/filter-by-nama`,
+        {
+          params: {
+            nama: `${value}`,
+            cabang: `${cabangId}`,
+          },
+        }
+      );
       setMurid(data);
     } catch (error) {
-      alert("Something went wrong");
+      toast.warn('Something went wrong', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const handleKeyDown = async (e) => {
+    if(e.key === 'Enter') {
+      handleInputChange(e);
+    }
+  };
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -44,7 +78,7 @@ export default function DaftarMurid() {
             type="search"
             className="rounded-3xl px-5 p-2 focus:outline-none"
             placeholder="Search"
-            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
           <CiSearch className="text-4xl text-white" />
         </div>
@@ -91,6 +125,18 @@ export default function DaftarMurid() {
           </table>
         </div>
       </div>
+      <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+          />
     </div>
   );
 }

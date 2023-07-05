@@ -1,26 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../../components/Contexts/UserContext";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Pendaftaran() {
+  const URL = import.meta.env.VITE_API_URL;
+  const currentDate = new Date().toISOString().split("T")[0];
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
-
+  const { cabangId } = useContext(UserContext);
+  const { namaCabang } = useContext(UserContext);
   const handleMaleCheckboxChange = (event) => {
-    setMaleChecked(event.target.checked);
     setMaleChecked(event.target.checked);
     if (event.target.checked) {
       setFemaleChecked(false);
-      setFemaleChecked(false);
     }
+    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
+    setMuridObj((prevObject) => ({
+      ...prevObject,
+      jenis_kelamin: gender,
+    }));
   };
 
   const handleFemaleCheckboxChange = (event) => {
     setFemaleChecked(event.target.checked);
-    setFemaleChecked(event.target.checked);
     if (event.target.checked) {
       setMaleChecked(false);
-      setMaleChecked(false);
+    }
+    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
+    setMuridObj((prevObject) => ({
+      ...prevObject,
+      jenis_kelamin: gender,
+    }));
+  };
+
+  let id = Math.floor(Math.random() * 1000);
+  const [muridObj, setMuridObj] = useState({
+    id: id++,
+    kode: id++ * 100,
+    registration_date: currentDate,
+    nama: "",
+    nickname: "",
+    jenis_kelamin: "",
+    level_sekarang: "Graduate 1",
+    pembayaran: null,
+    status: "Aktif",
+    tanggal_lahir: "",
+    tempat_lahir: "",
+    parent_name: "",
+    relation: "",
+    address: "",
+    city: "",
+    province: "",
+    postal_code: "",
+    cabang: cabangId,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
+    setMuridObj((prevObject) => ({
+      ...prevObject,
+      [name]: value,
+      jenis_kelamin: gender,
+    }));
+  };
+
+  const createMurid = async () => {
+    try {
+      console.log(muridObj);
+      const response = await axios.post(
+        `${URL}/murid/create`,
+        muridObj
+      );
+      toast.success('Response: Success', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    } catch (error) {
+      toast.warn('Error: Please fill out all the fields!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   };
 
@@ -28,14 +104,14 @@ export default function Pendaftaran() {
     <div className="flex-auto bg-orange-sempoa">
       <div className="flex justify-between items-center bg-orange-darker font-Inter text-white p-6 px-12">
         <div className="space-y-2">
-          <h1 className="font-bold text-2xl">Cabang A</h1>
+          <h1 className="font-bold text-2xl">{namaCabang}</h1>
           <h2 className="font-extralight text-md">Kota, Provinsi</h2>
         </div>
         <span className="text-3xl font-bold">Pendaftaran</span>
       </div>
       <div className="grid grid-cols-7 gap-y-6 m-6 p-6 bg-[#FAFAFA] rounded-2xl text-lg items-center">
         <span>Registration Date</span>
-        <input type="date" name="regis_date" id="regis_date" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+        <input value={currentDate} type="date" name="regis_date" id="regis_date" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
         <div className="col-span-4 flex items-center justify-end">
           <div className="border-2 border-orange-sempoa rounded-3xl">
             <div className="flex items-center p-2 px-3 space-x-16">
@@ -54,33 +130,45 @@ export default function Pendaftaran() {
         </div>
         <div className="grid grid-cols-3 col-span-3 gap-y-6 items-center">
           <span>Name</span>
-          <input type="text" name="name" id="name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="nama" value={muridObj.nama} onChange={handleInputChange} type="text" id="name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none"/>
           <span>Date of Birth</span>
-          <input type="date" name="date_of_birth" id="date_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
-          <span>Parent/Guradian Name</span>
-          <input type="text" name="parent_name" id="parent_name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="tanggal_lahir" value={muridObj.tanggal_lahir} onChange={handleInputChange} type="date" id="date_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <span>Parent/Guardian Name</span>
+          <input name="parent_name" value={muridObj.parent_name} onChange={handleInputChange} type="text" id="parent_name" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
           <span>Address</span>
-          <textarea name="address" id="address" className="row-span-5 col-span-2 h-full p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" style={{ resize: "none" }} />
+          <textarea name="address" value={muridObj.address} onChange={handleInputChange} id="address" className="row-span-5 col-span-2 h-full p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" style={{ resize: "none" }} />
         </div>
         <div className="h-full w-[1px] bg-slate-200 justify-self-center"></div>
         <div className="grid grid-cols-3 col-span-3 gap-y-6 items-center">
           <span>Nickname</span>
-          <input type="text" name="nickname" id="nickname" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="nickname" value={muridObj.nickname} onChange={handleInputChange} type="text" id="nickname" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
 
           <span>Place of Birth</span>
-          <input type="text" name="place_of_birth" id="place_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="tempat_lahir" value={muridObj.tempat_lahir} onChange={handleInputChange} type="text" id="place_of_birth" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
 
           <span>Relationship to Student</span>
-          <input type="text" name="relation" id="relation" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="relation" value={muridObj.relation} onChange={handleInputChange} type="text" id="relation" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
           <span>City</span>
-          <input type="text" name="city" id="city" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input  name="city" value={muridObj.city} onChange={handleInputChange} type="text" id="city" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
           <span>Province</span>
-          <input type="text" name="province" id="province" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+          <input name="province" value={muridObj.province} onChange={handleInputChange} type="text" id="province" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
         </div>
         <span>Postal Code</span>
-        <input type="number" name="postal_code" id="postal_code" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
-        <button className="col-span-7 m-6 btn bg-orange-sempoa text-white hover:bg-orange-darker w-32 justify-self-center">Submit</button>
+        <input name="postal_code" value={muridObj.postal_code} onChange={handleInputChange} type="number" id="postal_code" className="col-span-2 p-2 px-6 bg-[#FAFAFA] border-2 border-orange-sempoa rounded-3xl focus:outline-none" />
+        <button onClick={createMurid} className="col-span-7 m-6 btn bg-orange-sempoa text-white hover:bg-orange-darker w-32 justify-self-center">Submit</button>
       </div>
+      <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+          />
     </div>
   );
 }
