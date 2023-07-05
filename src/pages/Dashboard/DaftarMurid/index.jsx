@@ -32,6 +32,12 @@ export default function DaftarMurid() {
     }
   };
 
+  const handleKeyDown = async (e) => {
+    if(e.key === 'Enter') {
+      handleInputChange(e);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -49,7 +55,7 @@ export default function DaftarMurid() {
             type="search"
             className="rounded-3xl px-5 p-2 focus:outline-none"
             placeholder="Search"
-            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
           />
           <CiSearch className="text-4xl text-white" />
         </div>
