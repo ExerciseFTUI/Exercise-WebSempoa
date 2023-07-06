@@ -142,6 +142,11 @@ export default function PilihCabang() {
   const handleClick = (id, nama) => {
     setCabangId(id);
     setNamaCabang(nama);
+
+    //Session Storage
+    sessionStorage.setItem("cabangId", id);
+    sessionStorage.setItem("cabangName", nama);
+
     navigate("/dashboard/daftar-civitas/murid");
   };
 
