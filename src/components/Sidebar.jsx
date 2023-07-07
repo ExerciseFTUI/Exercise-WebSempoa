@@ -8,6 +8,7 @@ import {
   BsPencilSquare,
   BsCardHeading,
   BsChevronDown,
+  BsWallet2,
 } from "react-icons/bs"
 import { BiPackage } from "react-icons/bi"
 import { IoShirtOutline } from "react-icons/io5"
@@ -27,6 +28,7 @@ export default function Sidebar() {
     { title: "Barang", src: "BiPackage" },
     { title: "Voucher", src: "BsCardHeading" },
     { title: "Merchandise", src: "IoShirtOutline" },
+    { title: "Pembayaran", src: "BsWallet2" },
   ]
 
   const navigate = useNavigate()

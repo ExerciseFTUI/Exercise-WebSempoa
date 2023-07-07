@@ -19,6 +19,7 @@ import DaftarGuru from "./pages/Dashboard/Civitas/DaftarGuru";
 import Barang from "./pages/Dashboard/Barang";
 import DataBuku from "./pages/Dashboard/Barang/DataBuku";
 import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan";
+import Pembayaran from "./pages/Dashboard/Pembayaran";
 
 import "./index.css";
 import { UserContextProvider } from "./components/Contexts/UserContext";
@@ -46,6 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </Route>
 
               <Route path="voucher" element={<Voucher />} />
+              <Route path="pembayaran" element={<Pembayaran />} />
               <Route path="merchandise" element={<Merchandise />} />
             </Route>
           </Route>
