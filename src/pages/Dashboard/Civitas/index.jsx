@@ -4,7 +4,7 @@ import { UserContext } from "../../../components/Contexts/UserContext"
 
 export default function Barang() {
   const page = useLocation().pathname.split("/")[3]
-  const {namaCabang} = useContext(UserContext)
+  const namaCabang = sessionStorage.getItem("cabangName") ? sessionStorage.getItem("cabangName") : "Cabang Sempoa";
 
   return (
     <div className="bg-orange-sempoa flex-auto">

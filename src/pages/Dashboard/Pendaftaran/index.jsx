@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { UserContext } from "../../../components/Contexts/UserContext";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,20 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Pendaftaran() {
   const URL = import.meta.env.VITE_API_URL;
   const currentDate = new Date().toISOString().split("T")[0];
+  const navigate = useNavigate();
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
-  const { cabangId } = useContext(UserContext);
-  const { namaCabang } = useContext(UserContext);
+  const cabangId = sessionStorage.getItem("cabangId") ? sessionStorage.getItem("cabangId") : "";
+  const namaCabang = sessionStorage.getItem("cabangName") ? sessionStorage.getItem("cabangName") : "Cabang Sempoa";
+
   const handleMaleCheckboxChange = (event) => {
     setMaleChecked(event.target.checked);
     if (event.target.checked) {
       setFemaleChecked(false);
     }
-    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
-    setMuridObj((prevObject) => ({
-      ...prevObject,
-      jenis_kelamin: gender,
-    }));
   };
 
   const handleFemaleCheckboxChange = (event) => {
@@ -30,11 +27,6 @@ export default function Pendaftaran() {
     if (event.target.checked) {
       setMaleChecked(false);
     }
-    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
-    setMuridObj((prevObject) => ({
-      ...prevObject,
-      jenis_kelamin: gender,
-    }));
   };
 
   let id = Math.floor(Math.random() * 1000);
@@ -61,24 +53,36 @@ export default function Pendaftaran() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const gender = maleChecked ? "Laki-laki" : femaleChecked ? "Perempuan" : "";
     setMuridObj((prevObject) => ({
       ...prevObject,
       [name]: value,
-      jenis_kelamin: gender,
     }));
   };
 
+  useEffect(() => {
+    const handleGenderChange = () => {
+      const gender = maleChecked ? "Male" : femaleChecked ? "Female" : "";
+      setMuridObj((prevObject) => ({
+        ...prevObject,
+        jenis_kelamin: gender,
+      }));
+    };
+    handleGenderChange();
+  }, [maleChecked, femaleChecked]);
+
+  const timeout = (delay) => {
+    return new Promise( res => setTimeout(res, delay) );
+  }
+
   const createMurid = async () => {
     try {
-      console.log(muridObj);
       const response = await axios.post(
         `${URL}/murid/create`,
         muridObj
       );
       toast.success('Response: Success', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
@@ -86,10 +90,12 @@ export default function Pendaftaran() {
         progress: undefined,
         theme: "dark",
         });
+        await timeout(3000);
+        navigate("/dashboard/daftar-civitas/murid");
     } catch (error) {
       toast.warn('Error: Please fill out all the fields!', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,

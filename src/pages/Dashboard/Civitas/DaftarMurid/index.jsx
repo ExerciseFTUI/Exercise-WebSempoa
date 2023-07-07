@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CiSearch } from "react-icons/ci";
-import { UserContext } from "../../../../components/Contexts/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +8,7 @@ export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL;
   const [murid, setMurid] = useState([]);
 
-  const { cabangId, setCabangId } = useContext(UserContext);
+  const cabangId = sessionStorage.getItem("cabangId") ? sessionStorage.getItem("cabangId") : "";
 
   useEffect(() => {
     const getData = async () => {
@@ -33,11 +32,6 @@ export default function DaftarMurid() {
         });
       }
     };
-
-    //Get From Session Storage
-    if (sessionStorage.getItem("cabangId")) {
-      setCabangId(sessionStorage.getItem("cabangId"));
-    }
 
     //Fetch Data
     getData();
