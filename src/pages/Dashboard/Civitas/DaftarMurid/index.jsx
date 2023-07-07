@@ -32,8 +32,6 @@ export default function DaftarMurid() {
         });
       }
     };
-
-    //Fetch Data
     getData();
   }, [cabangId]);
 
@@ -110,7 +108,7 @@ export default function DaftarMurid() {
                       <th></th>
                       <td>{data.id}</td>
                       <td>{data.kode}</td>
-                      <td>{data.nama}</td>
+                      <td>{data.nama.toUpperCase()}</td>
                       <td>{data.jenis_kelamin}</td>
                       <td>{data.level_sekarang}</td>
                       <td>{data.status}</td>

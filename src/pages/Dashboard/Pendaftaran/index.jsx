@@ -38,7 +38,7 @@ export default function Pendaftaran() {
     nickname: "",
     jenis_kelamin: "",
     level_sekarang: "Graduate 1",
-    pembayaran: null,
+    pembayaran: [],
     status: "Aktif",
     tanggal_lahir: "",
     tempat_lahir: "",
