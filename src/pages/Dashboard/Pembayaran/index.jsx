@@ -3,6 +3,7 @@ import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Pembayaran() {
   const URL = import.meta.env.VITE_API_URL;
@@ -17,6 +18,7 @@ export default function Pembayaran() {
   const [belum, setBelum] = useState(0);
   let currentYear = new Date().getFullYear();
   let currentMonth = new Date().getMonth() + 1;
+  const navigate = useNavigate();
   
 
   const getData = async () => {
@@ -68,6 +70,10 @@ export default function Pembayaran() {
     currentYear = year;
   };
 
+  const handlePayNow = (userId) => {
+    sessionStorage.setItem("userId", userId);
+    navigate("/dashboard/invoice");
+  }
 
 
   return (
@@ -149,7 +155,7 @@ export default function Pembayaran() {
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <button className="btn">Pay Now</button>
+                                            <button className="btn" onClick={() => handlePayNow(data.id)}>Pay Now</button>
                                         </td>
                                       </>) 
                                       }
