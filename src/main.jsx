@@ -20,6 +20,7 @@ import Barang from "./pages/Dashboard/Barang";
 import DataBuku from "./pages/Dashboard/Barang/DataBuku";
 import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan";
 import Pembayaran from "./pages/Dashboard/Pembayaran";
+import Invoice from "./pages/Dashboard/Pembayaran/Invoice";
 
 import "./index.css";
 import { UserContextProvider } from "./components/Contexts/UserContext";
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
               <Route path="voucher" element={<Voucher />} />
               <Route path="pembayaran" element={<Pembayaran />} />
+              <Route path="invoice" element={<Invoice />} />
               <Route path="merchandise" element={<Merchandise />} />
             </Route>
           </Route>
