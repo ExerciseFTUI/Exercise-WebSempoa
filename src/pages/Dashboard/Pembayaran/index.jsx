@@ -14,10 +14,10 @@ export default function Pembayaran() {
     ? sessionStorage.getItem("cabangName")
     : "Cabang Sempoa";
   const [muridFilter, setMuridFilter] = useState([]);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const [sudah, setSudah] = useState(0);
   const [belum, setBelum] = useState(0);
-  let currentYear = new Date().getFullYear();
-  let currentMonth = new Date().getMonth() + 1;
   const navigate = useNavigate();
   
 
@@ -62,17 +62,17 @@ export default function Pembayaran() {
 
   const handleMonth = (e) => {
     const month = e.target.value;
-    currentMonth = month;
+    setCurrentMonth(month);
   };
 
   const handleYear = (e) => {
     const year = e.target.value;
-    currentYear = year;
+    setCurrentYear(year);
   };
 
   const handlePayNow = (userId) => {
     sessionStorage.setItem("userId", userId);
-    navigate("/dashboard/invoice");
+    navigate("/dashboard/invoice", {state: {currentMonth, currentYear}});
   }
 
 
@@ -107,8 +107,8 @@ export default function Pembayaran() {
               </select>
               <h1 className="text-white font-medium my-3">Tahun</h1>
               <select className="select select-bordered text-white" onChange={handleYear}>
-                <option className="text-black">{currentYear}</option>
-                <option className="text-black">{currentYear + 1}</option>
+                <option className="text-black">{new Date().getFullYear()}</option>
+                <option className="text-black">{new Date().getFullYear() + 1}</option>
               </select>
               <button className="btn text-white" onClick={()=>getData()}>submit</button>
             </div>

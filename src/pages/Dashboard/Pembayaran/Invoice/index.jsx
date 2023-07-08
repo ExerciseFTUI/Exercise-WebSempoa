@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { CiSearch } from "react-icons/ci";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 
 export default function Invoice() {
   const URL = import.meta.env.VITE_API_URL;
@@ -17,8 +17,10 @@ export default function Invoice() {
     : "Cabang Sempoa";
   const [muridFilter, setMuridFilter] = useState([]);
   const [namaMurid, setNamaMurid] = useState("");
-  let currentYear = new Date().getFullYear();
-  let currentMonth = new Date().getMonth() + 1;
+  const location = useLocation();
+  const {currentMonth, currentYear} = location.state ? location.state : "";
+  const [thisMonth, setThisMonth] = useState(currentMonth === undefined ? new Date().getMonth() + 1 : currentMonth);
+  const [thisYear, setThisYear] = useState(currentYear === undefined ? new Date().getFullYear() : currentYear);
   
 
   const getData = async () => {
@@ -45,12 +47,12 @@ export default function Invoice() {
   };
 
   useEffect(() => {
-    getData(currentMonth, currentYear);
+    getData();
   }, []);
 
   useEffect(() => {
-    console.log(muridFilter);
-  }, [muridFilter]);
+    handleDateChange();
+  }, [thisMonth, thisYear]);
 
   const formatDate = (date) => {
     const trimmedDateString = date.substring(0, date.length - 5);
@@ -60,23 +62,21 @@ export default function Invoice() {
 
   const handleMonth = (e) => {
     const month = e.target.value;
-    currentMonth = month;
-    handleDateChange();
+    setThisMonth(month);
   };
 
   const handleYear = (e) => {
     const year = e.target.value;
-    currentYear = year;
-    handleDateChange();
+    setThisYear(year);
   };
 
   const [invoiceObj, setInvoiceObj] = useState({
     "invoice": {
-      "bulan": `${currentMonth}-${currentYear}`,
+      "bulan": `${thisMonth}-${thisYear}`,
       "status": "Paid",
       "kupon": "",
       "tipe": "Iuran Bulanan",
-      "harga": 0,
+      "harga": null,
       "jenis_pembayaran": "Cash"
     }
   });
@@ -87,7 +87,7 @@ export default function Invoice() {
       ...prevObject,
       invoice: {
         ...prevObject.invoice,
-        "bulan": `${currentMonth}-${currentYear}`,
+        "bulan": `${thisMonth}-${thisYear}`,
         [name]: value,
       }
     }));
@@ -98,15 +98,32 @@ export default function Invoice() {
       ...prevObject,
       invoice: {
         ...prevObject.invoice,
-        "bulan": `${currentMonth}-${currentYear}`,
+        "bulan": `${thisMonth}-${thisYear}`,
       }
     }));
   };
 
+  const timeout = (delay) => {
+    return new Promise( res => setTimeout(res, delay) );
+  }
+
   const createInvoice = async () => {
+    if (invoiceObj.invoice.harga === null || invoiceObj.invoice.harga === "" || invoiceObj.invoice.kupon === "") {
+      toast.warn("Please fill in all the fields!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
     try {
         const response = await axios.put(
-            `${URL}/murid/invoice/975`,
+            `${URL}/murid/invoice/${userId}`,
             invoiceObj
           );
         toast.success('Response: Success', {
@@ -119,10 +136,11 @@ export default function Invoice() {
             progress: undefined,
             theme: "dark",
         });
-        await timeout(3000);
         getData();
+        await timeout(3000);
       } catch (error) {
-        toast.warn("Something went wrong!", {
+        const message = error.response.data.error;
+        toast.warn(message, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -151,7 +169,7 @@ export default function Invoice() {
             <div className="flex justify-end gap-2">
                 <h1 className="text-white my-3">CREATE INVOICE FOR:</h1>
               <h1 className="text-white font-medium my-3 ml-10">Bulan</h1>
-              <select className="select select-bordered text-white" defaultValue={currentMonth} onChange={handleMonth}>
+              <select className="select select-bordered text-white" defaultValue={thisMonth} onChange={handleMonth}>
                 <option className="text-black">1</option><option className="text-black">2</option>
                 <option className="text-black">3</option><option className="text-black">4</option>
                 <option className="text-black">5</option><option className="text-black">6</option>
@@ -160,9 +178,9 @@ export default function Invoice() {
                 <option className="text-black">11</option><option className="text-black">12</option>
               </select>
               <h1 className="text-white font-medium my-3">Tahun</h1>
-              <select className="select select-bordered text-white" onChange={handleYear}>
-                <option className="text-black">{currentYear}</option>
-                <option className="text-black">{currentYear + 1}</option>
+              <select className="select select-bordered text-white" defaultValue={thisYear} onChange={handleYear}>
+                <option className="text-black">{new Date().getFullYear()}</option>
+                <option className="text-black">{new Date().getFullYear() + 1}</option>
               </select>
             </div>
         </div>
