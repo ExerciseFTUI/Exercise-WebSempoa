@@ -5,9 +5,13 @@ function InputText({
   className = "",
   value = "",
   setValue,
+  ...props
 }) {
   return (
-    <div className="w-full flex flex-row items-center justify-between">
+    <div
+      // prettier-ignore
+      className={`w-full flex ${props.flexDirection ? props.flexDirection : "flex-row"} items-center justify-between`}
+    >
       <label htmlFor={name} className="text-lg">
         {name[0].toUpperCase() + name.slice(1, name.length)}
       </label>
@@ -18,7 +22,7 @@ function InputText({
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        type="text"
+        type={props.type ? props.type : "text"}
         className={
           "outline-none border-orange-sempoa border-2 rounded-full text-lg px-4 py-2" +
           " " +
