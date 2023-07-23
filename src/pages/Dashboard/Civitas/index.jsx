@@ -4,10 +4,12 @@ import { UserContext } from "../../../components/Contexts/UserContext"
 
 export default function Barang() {
   const page = useLocation().pathname.split("/")[3]
-  const namaCabang = sessionStorage.getItem("cabangName") ? sessionStorage.getItem("cabangName") : "Cabang Sempoa";
+  const namaCabang = sessionStorage.getItem("cabangName")
+    ? sessionStorage.getItem("cabangName")
+    : "Cabang Sempoa"
 
   return (
-    <div className="bg-orange-sempoa flex-auto">
+    <div className="bg-orange-sempoa flex flex-col w-full">
       <div className="bg-orange-darker font-Inter text-white py-6 px-12 flex justify-between">
         <div className="space-y-2">
           <h1 className="font-bold text-2xl">{namaCabang}</h1>
