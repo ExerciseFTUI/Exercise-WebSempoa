@@ -25,6 +25,8 @@ import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan"
 import Pembayaran from "./pages/Dashboard/Pembayaran"
 import Invoice from "./pages/Dashboard/Pembayaran/Invoice"
 
+import TambahAdmin from "./pages/TambahAdmin"
+
 import "./index.css"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -34,6 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="login" element={<LoginPage />} />
           <Route path="cabang" element={<PilihCabang />} />
+          <Route path="tambah-admin" element={<TambahAdmin />} />
 
           <Route path="/" element={<App />}>
             <Route path="dashboard/" element={<Dashboard />}>
@@ -57,7 +60,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </Route>
 
             {/* Wildcard route outside the nested routes */}
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/*" element={<Navigate to="/login" />} />
           </Route>
         </Routes>
       </UserContextProvider>
