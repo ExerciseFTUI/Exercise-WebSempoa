@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { CiSearch } from "react-icons/ci";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { CiSearch } from "react-icons/ci"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function DaftarMurid() {
-  const URL = import.meta.env.VITE_API_URL;
-  const [murid, setMurid] = useState([]);
+  const URL = import.meta.env.VITE_API_URL
+  const [murid, setMurid] = useState([])
 
-  const cabangId = sessionStorage.getItem("cabangId") ? sessionStorage.getItem("cabangId") : "";
+  const cabangId = sessionStorage.getItem("cabangId")
+    ? sessionStorage.getItem("cabangId")
+    : ""
 
   useEffect(() => {
     const getData = async () => {
@@ -17,8 +19,8 @@ export default function DaftarMurid() {
           params: {
             cabang: `${cabangId}`,
           },
-        });
-        setMurid(data);
+        })
+        setMurid(data)
       } catch (error) {
         toast.warn("No Data Found!", {
           position: "top-center",
@@ -29,22 +31,22 @@ export default function DaftarMurid() {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        });
+        })
       }
-    };
-    getData();
-  }, [cabangId]);
+    }
+    getData()
+  }, [cabangId])
 
   const handleInputChange = async (e) => {
-    const { value } = e.target;
+    const { value } = e.target
     try {
       const { data } = await axios.get(`${URL}/murid/filter-by-nama`, {
         params: {
           nama: `${value}`,
           cabang: `${cabangId}`,
         },
-      });
-      setMurid(data);
+      })
+      setMurid(data)
     } catch (error) {
       toast.warn("Something went wrong", {
         position: "top-center",
@@ -55,15 +57,15 @@ export default function DaftarMurid() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
+      })
     }
-  };
+  }
 
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
-      handleInputChange(e);
+      handleInputChange(e)
     }
-  };
+  }
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -71,10 +73,11 @@ export default function DaftarMurid() {
         <div className="flex flex-row items-center space-x-2">
           <input
             type="search"
-            className="rounded-3xl px-5 p-2 focus:outline-none"
+            className="rounded-3xl px-5 p-2 w-full max-w-xs focus:outline-none"
             placeholder="Search"
             onKeyDown={handleKeyDown}
           />
+
           <CiSearch className="text-4xl text-white" />
         </div>
 
@@ -113,7 +116,7 @@ export default function DaftarMurid() {
                       <td>{data.level_sekarang}</td>
                       <td>{data.status}</td>
                     </tr>
-                  );
+                  )
                 })
               )}
             </tbody>
@@ -133,5 +136,5 @@ export default function DaftarMurid() {
         theme="dark"
       />
     </div>
-  );
+  )
 }

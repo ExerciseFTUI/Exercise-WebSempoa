@@ -1,30 +1,40 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { UserContextProvider } from "./components/Contexts/UserContext"
 
-import App from "./App";
-import Dashboard from "./pages/Dashboard";
-import ErrorPage from "./pages/Error";
-import LoginPage from "./pages/Login";
-import PilihCabang from "./pages/PilihCabang";
+import App from "./App"
 
-import Voucher from "./pages/Dashboard/Voucher";
-import Merchandise from "./pages/Dashboard/Merchandise";
-import Pendaftaran from "./pages/Dashboard/Pendaftaran";
+import Dashboard from "./pages/Dashboard"
+import ErrorPage from "./pages/Error"
+import LoginPage from "./pages/Login"
 
-import Civitas from "./pages/Dashboard/Civitas";
-import DaftarMurid from "./pages/Dashboard/Civitas/DaftarMurid";
-import DaftarGuru from "./pages/Dashboard/Civitas/DaftarGuru";
+import PilihCabang from "./pages/PilihCabang"
+import TambahCabang from "./pages/PilihCabang/TambahCabang"
 
-import Barang from "./pages/Dashboard/Barang";
-import DataBuku from "./pages/Dashboard/Barang/DataBuku";
-import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan";
-import Pembayaran from "./pages/Dashboard/Pembayaran";
-import Invoice from "./pages/Dashboard/Pembayaran/Invoice";
+import Voucher from "./pages/Dashboard/Voucher"
+import Merchandise from "./pages/Dashboard/Merchandise"
+import Pendaftaran from "./pages/Dashboard/Pendaftaran"
 
-import "./index.css";
+
+import Civitas from "./pages/Dashboard/Civitas"
+import DaftarMurid from "./pages/Dashboard/Civitas/DaftarMurid"
+import DaftarGuru from "./pages/Dashboard/Civitas/DaftarGuru"
+import TambahGuru from "./pages/Dashboard/Civitas/TambahGuru"
+
+import Barang from "./pages/Dashboard/Barang"
+import DataBuku from "./pages/Dashboard/Barang/DataBuku"
+import DataPemesanan from "./pages/Dashboard/Barang/DataPemesanan"
+import Pembayaran from "./pages/Dashboard/Pembayaran"
+import Invoice from "./pages/Dashboard/Pembayaran/Invoice"
+
+import TambahAdmin from "./pages/TambahAdmin"
+
+import "./index.css"
+
 import { UserContextProvider } from "./components/Contexts/UserContext";
 import TambahCabang from "./pages/PilihCabang/TambahCabang";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -36,31 +46,33 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="tambah-cabang" element={<TambahCabang />} />
           </Route>
 
-          <Route path="/" element={<App />}>
-            <Route path="dashboard/" element={<Dashboard />}>
-              <Route path="daftar-civitas/" element={<Civitas />}>
-                <Route path="murid" element={<DaftarMurid />} />
-                <Route path="guru" element={<DaftarGuru />} />
-              </Route>
+          <Route path="tambah-admin" element={<TambahAdmin />} />
 
-              <Route path="pendaftaran" element={<Pendaftaran />} />
+          <Route path="/" element={<Navigate to="/login" />} />
 
-              <Route path="barang/" element={<Barang />}>
-                <Route path="pemesanan" element={<DataPemesanan />} />
-                <Route path="buku" element={<DataBuku />} />
-              </Route>
-
-              <Route path="voucher" element={<Voucher />} />
-              <Route path="pembayaran" element={<Pembayaran />} />
-              <Route path="invoice" element={<Invoice />} />
-              <Route path="merchandise" element={<Merchandise />} />
+          <Route path="dashboard/" element={<Dashboard />}>
+            <Route path="daftar-civitas/" element={<Civitas />}>
+              <Route path="murid" element={<DaftarMurid />} />
+              <Route path="guru" element={<DaftarGuru />} />
+              <Route path="tambah-guru" element={<TambahGuru />} />
             </Route>
+
+            <Route path="pendaftaran" element={<Pendaftaran />} />
+
+            <Route path="barang/" element={<Barang />}>
+              <Route path="pemesanan" element={<DataPemesanan />} />
+              <Route path="buku" element={<DataBuku />} />
+            </Route>
+
+            <Route path="voucher" element={<Voucher />} />
+            <Route path="pembayaran" element={<Pembayaran />} />
+            <Route path="invoice" element={<Invoice />} />
+            <Route path="merchandise" element={<Merchandise />} />
           </Route>
 
-          {/* Wildcard route outside the nested routes */}
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>
-);
+)

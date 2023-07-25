@@ -88,20 +88,20 @@ export default function Barang() {
   ]
 
   return (
-    <div className="">
+    <div className="flex-auto min-h-[calc(100vh-128px)] md:min-h-[calc(100vh-112px)]">
       <div className="px-12 p-6 space-y-6">
         <div className="flex items-center space-x-2">
           <input
             type="search"
-            className="rounded-3xl px-5 p-2 focus:outline-none"
+            className="rounded-3xl px-5 p-2 focus:outline-none w-full max-w-xs"
             placeholder="Search"
           />
 
           <CiSearch className="text-4xl text-white" />
         </div>
 
-        <div className="bg-white rounded-3xl p-4">
-          <div className="w-full flex justify-around text-center border-b-2 border-black mb-4">
+        <div className="flex flex-col items-start bg-white rounded-3xl p-4 overflow-x-scroll">
+          <div className="flex justify-around text-center border-b-2 border-black w-auto lg:w-full mb-4">
             <h1 className="w-44 py-2">No PO</h1>
             <h1 className="w-44 py-2">Tanggal</h1>
             <h1 className="w-44 py-2">Pengirim</h1>
@@ -110,7 +110,7 @@ export default function Barang() {
             <h1 className="w-44 py-2">Total Harga</h1>
           </div>
 
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4 w-auto lg:w-full">
             {barang.map((b, i) => (
               <CollapsableTable key={i} PO={b} barang={b.barang} />
             ))}
