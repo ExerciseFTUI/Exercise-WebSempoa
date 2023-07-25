@@ -6,6 +6,10 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        overflow-x: hidden
+    }
+
     img {
         user-select: none;
     }
@@ -13,6 +17,14 @@
     h1 {
         font-weight: bold;
     }
+}
+
+::-webkit-scrollbar {
+    @apply w-1 h-2
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-orange-darker
 }
 
 #male-checkbox:checked ~ .check-1{
