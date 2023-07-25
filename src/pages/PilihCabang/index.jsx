@@ -156,11 +156,11 @@ export default function PilihCabang() {
         <img src={sempoaLogo} alt="Sempoa Logo" className="h-52" />
 
         <div className="flex items-center justify-center gap-4">
-          <button className="px-4 py-1 border-2 border-orange-sempoa rounded-lg text-orange-sempoa font-medium hover:text-white hover:bg-orange-sempoa ease-in-out duration-200 cursor-pointer">
-            + Tambah Akun
-          </button>
+          <button className="px-4 py-1 border-2 border-orange-sempoa rounded-lg text-orange-sempoa font-medium hover:text-white hover:bg-orange-sempoa ease-in-out duration-200 cursor-pointer">+ Tambah Akun</button>
 
-          <button className="px-4 py-1 border-2 border-orange-sempoa rounded-lg text-orange-sempoa font-medium hover:text-white hover:bg-orange-sempoa ease-in-out duration-200 cursor-pointer">
+          <button
+            className="px-4 py-1 border-2 border-orange-sempoa rounded-lg text-orange-sempoa font-medium hover:text-white hover:bg-orange-sempoa ease-in-out duration-200 cursor-pointer"
+            onClick={() => navigate("/cabang/tambah-cabang")}>
             + Tambah Cabang
           </button>
         </div>
@@ -171,8 +171,7 @@ export default function PilihCabang() {
           <div
             key={c._id}
             className="flex-col relative h-60 w-60 rounded-[3rem] bg-white hover:bg-orange-sempoa font-inter text-orange-sempoa hover:text-white border-[3px] border-orange-sempoa cursor-pointer p-8 space-y-1.5"
-            onClick={() => handleClick(c._id, c.namaCabang)}
-          >
+            onClick={() => handleClick(c._id, c.namaCabang)}>
             <h2 className="text-xl font-bold">{"Kota " + " " + (i + 1)}</h2>
             <h2 className="text-xl font-bold">{c.namaCabang}</h2>
             <p className="text-md absolute bottom-8">{"Status"}</p>

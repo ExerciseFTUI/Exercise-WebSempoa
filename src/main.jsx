@@ -31,7 +31,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserContextProvider>
         <Routes>
           <Route path="login" element={<LoginPage />} />
-          <Route path="cabang" element={<PilihCabang />} />
+          <Route path="cabang" element={<PilihCabang />}>
+            <Route path="tambah-cabang" element={<TambahCabang />} />
+          </Route>
 
           <Route path="/" element={<App />}>
             <Route path="dashboard/" element={<Dashboard />}>

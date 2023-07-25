@@ -1,37 +1,31 @@
-import React, { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import {
-  BsArrowLeftShort,
-  BsPeople,
-  BsPencilSquare,
-  BsCardHeading,
-  BsChevronDown,
-  BsWallet2,
-} from "react-icons/bs"
-import { BiPackage } from "react-icons/bi"
-import { IoShirtOutline } from "react-icons/io5"
+import { BsArrowLeftShort, BsPencilSquare, BsCardHeading, BsChevronDown, BsWallet2 } from "react-icons/bs";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { BiPackage } from "react-icons/bi";
+import { IoShirtOutline } from "react-icons/io5";
 
-import sempoaLogo from "../assets/sempoa-logo.png"
+import sempoaLogo from "../assets/sempoa-logo.png";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
-  let { pathname } = useLocation()
+  let { pathname } = useLocation();
 
-  const page = pathname.split("/")[2]
+  const page = pathname.split("/")[2];
 
   const Menus = [
-    { title: "Daftar Civitas", src: "BsPeople" },
+    { title: "Daftar Civitas", src: "MdOutlinePeopleAlt" },
     { title: "Pendaftaran", src: "BsPencilSquare" },
     { title: "Barang", src: "BiPackage" },
     { title: "Voucher", src: "BsCardHeading" },
     { title: "Merchandise", src: "IoShirtOutline" },
     { title: "Pembayaran", src: "BsWallet2" },
-  ]
+  ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   /* prettier-ignore */
   return (
