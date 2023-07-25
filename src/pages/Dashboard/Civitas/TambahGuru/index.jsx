@@ -25,17 +25,19 @@ function TambahGuruPage() {
   }
 
   return (
-    <div id="tambah-guru-page" className="h-full p-4">
+    <div id="tambah-guru-page" className="min-h-[calc(100vh-132px)] p-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-full h-full p-4 rounded-lg flex"
+        className="bg-white w-full h-full p-4 rounded-lg flex flex-col gap-4 md:flex-row"
       >
-        <div className="w-full flex flex-col gap-5 mr-16">
+        <div className="w-full md:w-1/2 flex flex-col gap-4">
           <InputText
             value={namaLengkap}
             setValue={setNamaLengkap}
             name="Nama Lengkap"
             required={true}
+            flexDirection="flex-col xl:flex-row gap-2 lg:justify-between"
+            className="w-full lg:w-auto"
           />
 
           <InputText
@@ -43,6 +45,8 @@ function TambahGuruPage() {
             setValue={setNamaPanggilan}
             name="Nama Panggilan"
             required={true}
+            flexDirection="flex-col xl:flex-row gap-2 lg:justify-between"
+            className="w-full lg:w-auto"
           />
 
           <InputText
@@ -50,6 +54,8 @@ function TambahGuruPage() {
             setValue={setAlamat}
             name="Alamat"
             required={true}
+            flexDirection="flex-col xl:flex-row gap-2 lg:justify-between"
+            className="w-full lg:w-auto"
           />
 
           <InputText
@@ -57,24 +63,28 @@ function TambahGuruPage() {
             setValue={setTelp}
             name="No. Telepon"
             required={true}
+            flexDirection="flex-col xl:flex-row gap-2 lg:justify-between"
+            className="w-full lg:w-auto"
           />
         </div>
 
-        <div className="w-full text-lg flex flex-col gap-5">
+        <div className="w-full md:w-1/2 text-lg flex flex-col gap-4">
           <InputText
             value={email}
             setValue={setEmail}
             name="Email"
             required={true}
+            flexDirection="flex-col xl:flex-row gap-2 lg:justify-between"
+            className="w-full lg:w-auto"
           />
 
           <div
             id="change-gender"
-            className="flex items-center justify-between text-lg"
+            className="flex flex-col xl:flex-row items-center justify-between gap-2 text-lg"
           >
             <p className="h-fit">Jenis Kelamin</p>
 
-            <div className="flex items-center gap-16">
+            <div className="flex gap-6">
               <label
                 htmlFor="male-checkbox"
                 className="cursor-pointer relative text-orange-sempoa flex items-center"
@@ -125,7 +135,7 @@ function TambahGuruPage() {
             </div>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-2">
             <label htmlFor="select-education">Pendidikan Terakhir</label>
 
             <select
@@ -134,7 +144,7 @@ function TambahGuruPage() {
               required={true}
               value={pendidikan}
               onChange={(e) => setPendidikan(e.target.value)}
-              className="outline-none border-orange-sempoa border-2 text-orange-sempoa w-1/3 px-4 py-2 rounded-full"
+              className="outline-none border-orange-sempoa border-2 text-orange-sempoa w-full px-4 py-2 rounded-full lg:w-auto"
             >
               <option disabled></option>
               <option value="S3">S3</option>

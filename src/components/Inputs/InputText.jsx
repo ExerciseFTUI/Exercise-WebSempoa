@@ -10,7 +10,7 @@ function InputText({
   return (
     <div
       // prettier-ignore
-      className={`w-full flex ${props.flexDirection ? props.flexDirection : "flex-row"} items-center justify-between`}
+      className={`flex ${props.flexDirection ? props.flexDirection : "flex-row"} items-center`}
     >
       <label htmlFor={name} className="text-lg">
         {name[0].toUpperCase() + name.slice(1, name.length)}

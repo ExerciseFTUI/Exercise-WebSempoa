@@ -33,12 +33,12 @@ function TambahAdmin() {
       id="tambah-admin-page"
       className="flex flex-col items-center justify-center"
     >
-      <div className="flex items-center justify-between w-full px-28">
+      <div className="flex flex-col md:flex-row text-center items-center justify-between w-full md:px-28 mb-6 md:m-0">
         <img
           alt="Sempoa's Logo"
           title="Logo Sempoa"
           src={logo}
-          className="w-72"
+          className="w-72 object-cover"
         />
 
         <h1 className="text-orange-darker text-3xl">Tambah Admin</h1>

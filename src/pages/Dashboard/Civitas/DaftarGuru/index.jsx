@@ -40,20 +40,21 @@ export default function DaftarMurid() {
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
       <div className="px-12 p-6 space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-2 md:flex-row justify-between md:items-center">
           <div className="flex flex-row items-center gap-2">
             <input
               type="search"
-              className="rounded-3xl px-5 p-2 focus:outline-none"
+              className="rounded-3xl px-5 p-2 w-full max-w-sm focus:outline-none"
               placeholder="Search"
               onChange={handleInputChange}
             />
+
             <CiSearch className="text-4xl text-white" />
           </div>
 
           <Link
             to="/dashboard/daftar-civitas/tambah-guru"
-            className="font-semibold text-white border-2 border-white rounded-md h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa ease-in-out duration-200 tracking-wider"
+            className="font-semibold text-white border-2 border-white rounded-md w-fit h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa ease-in-out duration-200 tracking-wider"
           >
             Tambah Guru
           </Link>

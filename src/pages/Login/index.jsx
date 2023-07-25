@@ -1,25 +1,25 @@
-import React, { useContext, useState } from "react";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import React, { useContext, useState } from "react"
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
-import sempoaLogo from "../../assets/sempoa-logo.png";
-import exerciseLogo from "../../assets/Exercise Logo.png";
-import { UserContext } from "../../components/Contexts/UserContext";
+import sempoaLogo from "../../assets/sempoa-logo.png"
+import exerciseLogo from "../../assets/Exercise Logo.png"
+import { UserContext } from "../../components/Contexts/UserContext"
 
 const LoginPage = (props) => {
   //Global State
-  const { login } = useContext(UserContext);
+  const { login } = useContext(UserContext)
 
-  const [username, setUsername] = useState("");
-  const [pass, setPass] = useState("");
-  const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState("")
+  const [pass, setPass] = useState("")
+  const [open, setOpen] = useState(false)
 
   const toggle = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    login(username, pass);
-  };
+    e.preventDefault()
+    login(username, pass)
+  }
 
   return (
     <div className="sm:bg-login-pattern bg-login-pattern-mobile bg-contain bg-no-repeat w-full h-screen bg-[#FAFAFA]">
@@ -52,15 +52,12 @@ const LoginPage = (props) => {
                   onChange={(e) => setUsername(e.target.value)}
                   onKeyUp={(e) => {
                     if (e.target.value !== "") {
-                      e.target.classList.add(
-                        "border-orange-sempoa",
-                        "border-2"
-                      );
+                      e.target.classList.add("border-orange-sempoa", "border-2")
                     } else {
                       e.target.classList.remove(
                         "border-orange-sempoa",
                         "border-2"
-                      );
+                      )
                     }
                   }}
                 />
@@ -82,12 +79,12 @@ const LoginPage = (props) => {
                         e.target.classList.add(
                           "border-orange-sempoa",
                           "border-2"
-                        );
+                        )
                       } else {
                         e.target.classList.remove(
                           "border-orange-sempoa",
                           "border-2"
-                        );
+                        )
                       }
                     }}
                   />
@@ -109,12 +106,12 @@ const LoginPage = (props) => {
                 </button>
               </div>
             </form>
-            <p className="sm:p-1.5 p-1 text-sm text-center font-Montserrat text-gray-500">
+            <p className="sm:p-1.5 p-1 text-sm text-center font-Montserrat text-gray-800">
               Do not have account?{" "}
               <a
                 href="#"
                 onClick={() => alert("clicked")}
-                className="font-Montserrat text-[#FB9E23] hover:underline"
+                className="font-Montserrat text-gray-500 underline underline-offset-2"
               >
                 Register
               </a>
@@ -123,7 +120,7 @@ const LoginPage = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

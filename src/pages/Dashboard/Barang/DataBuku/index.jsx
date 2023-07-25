@@ -38,12 +38,12 @@ export default function DataBuku() {
   ]
 
   return (
-    <div className="px-12 p-6 space-y-6">
-      <div className="flex items-center gap-8">
+    <div className="px-12 p-6 space-y-6 min-h-[calc(100vh-128px)] md:min-h-[calc(100vh-112px)]">
+      <div className="flex flex-col md:flex-row items-center gap-8">
         <div className="flex gap-2">
           <input
             type="search"
-            className="rounded-3xl px-5 p-2 focus:outline-none"
+            className="rounded-3xl px-5 p-2 focus:outline-none w-full max-w-xs"
             placeholder="Search"
           />
 
@@ -52,7 +52,7 @@ export default function DataBuku() {
           </button>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button className="bg-white text-black rounded-2xl px-6 py-1 border-2 border-white active:bg-orange-darker active:text-white">
             Tersedia
           </button>
@@ -72,7 +72,7 @@ export default function DataBuku() {
           {/* head */}
           <thead>
             <tr>
-              {/* <th></th> */}
+              <th></th>
               <th className="normal-case text-lg text-center">ID</th>
               <th className="normal-case text-lg">No. Buku</th>
               <th className="normal-case text-lg">Level</th>
@@ -86,7 +86,7 @@ export default function DataBuku() {
             {/* row */}
             {buku.map((data, i) => (
               <tr key={i} className="border-hidden hover text-black">
-                {/* <th></th> */}
+                <td></td>
                 <td className="text-center">{data.id}</td>
                 <td>{data.no}</td>
                 <td>{data.level}</td>
