@@ -24,6 +24,7 @@ import Invoice from "./pages/Dashboard/Pembayaran/Invoice";
 
 import "./index.css";
 import { UserContextProvider } from "./components/Contexts/UserContext";
+import TambahCabang from "./pages/PilihCabang/TambahCabang";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
