@@ -1,52 +1,62 @@
-import { useState, useEffect, useMemo } from "react";
-import axios from "axios";
+import { useState, useEffect, useMemo } from "react"
+import axios from "axios"
 
-import { CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci"
 
-import URL from "../../../../utils/link";
+import URL from "../../../../utils/link"
+import { Link } from "react-router-dom"
 
 export default function DaftarMurid() {
-  const [guru, setGuru] = useState([]);
+  const [guru, setGuru] = useState([])
 
   const getData = async () => {
     try {
-      const { data } = await axios.get(`${URL}/guru`);
-      setGuru(data);
-      console.log(data);
+      const { data } = await axios.get(`${URL}/guru`)
+      setGuru(data)
+      console.log(data)
     } catch (error) {
-      alert(error);
+      alert(error)
     }
-  };
+  }
 
   const handleInputChange = async (e) => {
-    const { value } = e.target;
+    const { value } = e.target
     try {
       const { data } = await axios.get(`${URL}/guru/filter-by-nama`, {
         params: {
           nama: `${value}`,
         },
-      });
-      setGuru(data);
+      })
+      setGuru(data)
     } catch (error) {
-      alert("Something went wrong");
+      alert("Something went wrong")
     }
-  };
+  }
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
       <div className="px-12 p-6 space-y-6">
-        <div className="flex flex-row items-center space-x-2">
-          <input
-            type="search"
-            className="rounded-3xl px-5 p-2 focus:outline-none"
-            placeholder="Search"
-            onChange={handleInputChange}
-          />
-          <CiSearch className="text-4xl text-white" />
+        <div className="flex justify-between items-center">
+          <div className="flex flex-row items-center gap-2">
+            <input
+              type="search"
+              className="rounded-3xl px-5 p-2 focus:outline-none"
+              placeholder="Search"
+              onChange={handleInputChange}
+            />
+            <CiSearch className="text-4xl text-white" />
+          </div>
+
+          <Link
+            to="/dashboard/daftar-civitas/tambah-guru"
+            className="font-semibold text-white border-2 border-white rounded-md h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa ease-in-out duration-200 tracking-wider"
+          >
+            Tambah Guru
+          </Link>
         </div>
 
         <div className="overflow-x-auto bg-white rounded-3xl">
@@ -84,7 +94,7 @@ export default function DaftarMurid() {
                       <td>{data.level_sekarang}</td>
                       <td>{data.status}</td>
                     </tr>
-                  );
+                  )
                 })
               )}
             </tbody>
@@ -92,5 +102,5 @@ export default function DaftarMurid() {
         </div>
       </div>
     </div>
-  );
+  )
 }
