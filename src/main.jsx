@@ -8,7 +8,9 @@ import App from "./App"
 import Dashboard from "./pages/Dashboard"
 import ErrorPage from "./pages/Error"
 import LoginPage from "./pages/Login"
+
 import PilihCabang from "./pages/PilihCabang"
+import TambahCabang from "./pages/PilihCabang/TambahCabang"
 
 import Voucher from "./pages/Dashboard/Voucher"
 import Merchandise from "./pages/Dashboard/Merchandise"
@@ -38,32 +40,32 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="cabang" element={<PilihCabang />}>
             <Route path="tambah-cabang" element={<TambahCabang />} />
           </Route>
+
           <Route path="tambah-admin" element={<TambahAdmin />} />
 
-          <Route path="/" element={<App />}>
-            <Route path="dashboard/" element={<Dashboard />}>
-              <Route path="daftar-civitas/" element={<Civitas />}>
-                <Route path="murid" element={<DaftarMurid />} />
-                <Route path="guru" element={<DaftarGuru />} />
-                <Route path="tambah-guru" element={<TambahGuru />} />
-              </Route>
+          <Route path="/" element={<Navigate to="/login" />} />
 
-              <Route path="pendaftaran" element={<Pendaftaran />} />
-
-              <Route path="barang/" element={<Barang />}>
-                <Route path="pemesanan" element={<DataPemesanan />} />
-                <Route path="buku" element={<DataBuku />} />
-              </Route>
-
-              <Route path="voucher" element={<Voucher />} />
-              <Route path="pembayaran" element={<Pembayaran />} />
-              <Route path="invoice" element={<Invoice />} />
-              <Route path="merchandise" element={<Merchandise />} />
+          <Route path="dashboard/" element={<Dashboard />}>
+            <Route path="daftar-civitas/" element={<Civitas />}>
+              <Route path="murid" element={<DaftarMurid />} />
+              <Route path="guru" element={<DaftarGuru />} />
+              <Route path="tambah-guru" element={<TambahGuru />} />
             </Route>
 
-            {/* Wildcard route outside the nested routes */}
-            <Route path="/*" element={<Navigate to="/login" />} />
+            <Route path="pendaftaran" element={<Pendaftaran />} />
+
+            <Route path="barang/" element={<Barang />}>
+              <Route path="pemesanan" element={<DataPemesanan />} />
+              <Route path="buku" element={<DataBuku />} />
+            </Route>
+
+            <Route path="voucher" element={<Voucher />} />
+            <Route path="pembayaran" element={<Pembayaran />} />
+            <Route path="invoice" element={<Invoice />} />
+            <Route path="merchandise" element={<Merchandise />} />
           </Route>
+
+          <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       </UserContextProvider>
     </BrowserRouter>
