@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import {
   BsArrowLeftShort,
@@ -8,33 +8,36 @@ import {
   BsCardHeading,
   BsChevronDown,
   BsWallet2,
-} from "react-icons/bs"
-import { MdOutlinePeopleAlt } from "react-icons/md"
-import { BiPackage } from "react-icons/bi"
-import { IoShirtOutline } from "react-icons/io5"
+} from "react-icons/bs";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { BiPackage } from "react-icons/bi";
+import { IoShirtOutline } from "react-icons/io5";
 
-import sempoaLogo from "../assets/sempoa-logo.png"
+import sempoaLogo from "../assets/sempoa-logo.png";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  let { pathname } = useLocation()
+  let { pathname } = useLocation();
 
-  const page = pathname.split("/")[2]
+  const page = pathname.split("/")[2];
 
   const Menus = [
-    { title: "Daftar Civitas", src: "MdOutlinePeopleAlt" },
-    { title: "Pendaftaran", src: "BsPencilSquare" },
-    { title: "Barang", src: "BiPackage" },
-    { title: "Voucher", src: "BsCardHeading" },
-    { title: "Merchandise", src: "IoShirtOutline" },
-    { title: "Pembayaran", src: "BsWallet2" },
-  ]
+    {
+      title: "Daftar Civitas",
+      src: <MdOutlinePeopleAlt className={`text-2xl`} />,
+    },
+    { title: "Pendaftaran", src: <BsPencilSquare className={`text-2xl`} /> },
+    { title: "Barang", src: <BiPackage className={`text-2xl`} /> },
+    { title: "Voucher", src: <BsCardHeading className={`text-2xl`} /> },
+    { title: "Merchandise", src: <IoShirtOutline className={`text-2xl`} /> },
+    { title: "Pembayaran", src: <BsWallet2 className={`text-2xl`} /> },
+  ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function toggleOpen() {
-    setOpen(!open)
+    setOpen(!open);
   }
 
   /* prettier-ignore */
@@ -58,7 +61,7 @@ export default function Sidebar() {
 
       <ul className="space-y-2 mb-16">
         {Menus.map(({ title, src }, i) => {
-          const Icon = eval(src)
+          // const Icon = eval(src)
           const id = title.toLowerCase().replace(" ", "-")
 
         //   const link = id == "barang" ? `/dashboard/barang/pemesanan` : `/dashboard/${id}`
@@ -84,7 +87,8 @@ export default function Sidebar() {
               }
               onClick={handleClick}
             >
-              <Icon className={`text-2xl`} />
+              {/* <Icon className={`text-2xl`} /> */}
+              <span >{src}</span>
 
               <span className={`text-base whitespace-nowrap ${!open && "hidden"}`}>{title}</span>
             </li>
