@@ -16,6 +16,7 @@ import Voucher from "./pages/Dashboard/Voucher"
 import Merchandise from "./pages/Dashboard/Merchandise"
 import Pendaftaran from "./pages/Dashboard/Pendaftaran"
 
+
 import Civitas from "./pages/Dashboard/Civitas"
 import DaftarMurid from "./pages/Dashboard/Civitas/DaftarMurid"
 import DaftarGuru from "./pages/Dashboard/Civitas/DaftarGuru"
@@ -30,6 +31,10 @@ import Invoice from "./pages/Dashboard/Pembayaran/Invoice"
 import TambahAdmin from "./pages/TambahAdmin"
 
 import "./index.css"
+
+import { UserContextProvider } from "./components/Contexts/UserContext";
+import TambahCabang from "./pages/PilihCabang/TambahCabang";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
