@@ -10,7 +10,6 @@ import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/Login";
 
 import PilihCabang from "./pages/PilihCabang";
-import TambahCabang from "./pages/PilihCabang/TambahCabang";
 
 import Voucher from "./pages/Dashboard/Voucher";
 import Merchandise from "./pages/Dashboard/Merchandise";
@@ -29,6 +28,8 @@ import Invoice from "./pages/Dashboard/Pembayaran/Invoice";
 
 import TambahAdmin from "./pages/TambahAdmin";
 
+import TambahCabang from "./pages/TambahCabang";
+
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -37,9 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserContextProvider>
         <Routes>
           <Route path="login" element={<LoginPage />} />
-          <Route path="cabang" element={<PilihCabang />}>
-            <Route path="tambah-cabang" element={<TambahCabang />} />
-          </Route>
+          <Route path="cabang" element={<PilihCabang />} />
+
+          <Route path="tambah-cabang" element={<TambahCabang />} />
 
           <Route path="tambah-admin" element={<TambahAdmin />} />
 
