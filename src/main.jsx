@@ -11,7 +11,9 @@ import LoginPage from "./pages/Login";
 
 import PilihCabang from "./pages/PilihCabang";
 
-import Voucher from "./pages/Dashboard/Voucher";
+import Kupon from "./pages/Dashboard/Kupon";
+import TambahKupon from "./pages/Dashboard/Kupon/TambahKupon";
+
 import Merchandise from "./pages/Dashboard/Merchandise";
 import Pendaftaran from "./pages/Dashboard/Pendaftaran";
 
@@ -60,7 +62,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="buku" element={<DataBuku />} />
             </Route>
 
-            <Route path="voucher" element={<Voucher />} />
+            <Route path="kupon/" element={<Kupon />} />
             <Route path="pembayaran" element={<Pembayaran />} />
             <Route path="invoice" element={<Invoice />} />
             <Route path="merchandise" element={<Merchandise />} />

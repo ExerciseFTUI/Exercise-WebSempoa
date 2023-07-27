@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import {
-  BsArrowLeftShort,
-  BsPencilSquare,
-  BsCardHeading,
-  BsChevronDown,
-  BsWallet2,
-} from "react-icons/bs";
+import { BsArrowLeftShort, BsPencilSquare, BsCardHeading, BsChevronDown, BsWallet2 } from "react-icons/bs";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { BiPackage } from "react-icons/bi";
 import { IoShirtOutline } from "react-icons/io5";
@@ -29,7 +23,7 @@ export default function Sidebar() {
     },
     { title: "Pendaftaran", src: <BsPencilSquare className={`text-2xl`} /> },
     { title: "Barang", src: <BiPackage className={`text-2xl`} /> },
-    { title: "Voucher", src: <BsCardHeading className={`text-2xl`} /> },
+    { title: "Kupon", src: <BsCardHeading className={`text-2xl`} /> },
     { title: "Merchandise", src: <IoShirtOutline className={`text-2xl`} /> },
     { title: "Pembayaran", src: <BsWallet2 className={`text-2xl`} /> },
   ];
