@@ -20,7 +20,7 @@ const TambahKupon = ({ isVisible, onClose }) => {
             <InputText value={bundle} setValue={setBundle} name="Bundle" required={true} flexDirection="flex-col xl:flex-row gap-2 lg:justify-between" className="w-full" />
             <InputText value={kuponId} setValue={setKuponId} name="ID Kupon" required={true} flexDirection="flex-col xl:flex-row gap-2 lg:justify-between" className="w-full" />
           </div>
-          <div className="flex flex-row justify-center items-center gap-8 pt-4">
+          <div className="flex flex-row justify-center items-center gap-8 pt-4 font-semibold">
             <button className="bg-red-500 text-white text-xl self-end py-2 px-7 w-fit whitespace-nowrap rounded-full hover:scale-90 ease-in-out duration-200" onClick={() => onClose()}>
               Batal
             </button>
