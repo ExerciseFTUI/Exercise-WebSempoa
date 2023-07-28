@@ -10,9 +10,10 @@ import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/Login";
 
 import PilihCabang from "./pages/PilihCabang";
-import TambahCabang from "./pages/PilihCabang/TambahCabang";
 
-import Voucher from "./pages/Dashboard/Voucher";
+import Kupon from "./pages/Dashboard/Kupon";
+import TambahKupon from "./pages/Dashboard/Kupon/TambahKupon";
+
 import Merchandise from "./pages/Dashboard/Merchandise";
 import Pendaftaran from "./pages/Dashboard/Pendaftaran";
 
@@ -29,6 +30,8 @@ import Invoice from "./pages/Dashboard/Pembayaran/Invoice";
 
 import TambahAdmin from "./pages/TambahAdmin";
 
+import TambahCabang from "./pages/TambahCabang";
+
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -37,9 +40,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserContextProvider>
         <Routes>
           <Route path="login" element={<LoginPage />} />
-          <Route path="cabang" element={<PilihCabang />}>
-            <Route path="tambah-cabang" element={<TambahCabang />} />
-          </Route>
+          <Route path="cabang" element={<PilihCabang />} />
+
+          <Route path="tambah-cabang" element={<TambahCabang />} />
 
           <Route path="tambah-admin" element={<TambahAdmin />} />
 
@@ -59,7 +62,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="buku" element={<DataBuku />} />
             </Route>
 
-            <Route path="voucher" element={<Voucher />} />
+            <Route path="kupon/" element={<Kupon />} />
             <Route path="pembayaran" element={<Pembayaran />} />
             <Route path="invoice" element={<Invoice />} />
             <Route path="merchandise" element={<Merchandise />} />
