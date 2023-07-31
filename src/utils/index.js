@@ -25,6 +25,14 @@ export async function addAdmin(username, password, role, cabangId) {
   return data;
 }
 
+export async function getKupon(cabangId) {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_API_URL}/kupon/getKuponByCabang/${cabangId}`
+  );
+
+  return data;
+}
+
 export async function addKupon(bundle, kuponId, cabangId) {
   const body = {
     bundle: bundle,

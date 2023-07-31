@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import TambahKupon from "./TambahKupon";
+import { getKupon } from "../../../utils";
+import { useQuery } from "react-query";
 
 const Kupon = () => {
   const namaCabang = sessionStorage.getItem("cabangName")
@@ -13,12 +15,18 @@ const Kupon = () => {
 
   const kuponQuery = useQuery({
     queryKey: ["getKupon", cabangId],
-    queryFn: () => getAllCabang(),
+    queryFn: () => getKupon(cabangId),
   });
 
   const handleClickAdd = () => {
     setShowTambahKupon((prevState) => !prevState);
   };
+
+  if (kuponQuery.isSuccess) {
+    console.log(kuponQuery.data); //Data seluruh kupon
+  }
+
+  //:TODO Display all kupon in the table
 
   return (
     <Fragment>
