@@ -3,6 +3,14 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { UserContextProvider } from "./components/Contexts/UserContext";
 
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
 import App from "./App";
 
 import Dashboard from "./pages/Dashboard";
@@ -34,43 +42,48 @@ import TambahCabang from "./pages/TambahCabang";
 
 import "./index.css";
 
+// Create a client
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserContextProvider>
-        <Routes>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="cabang" element={<PilihCabang />} />
+      <QueryClientProvider client={queryClient}>
+        <UserContextProvider>
+          <Routes>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="cabang" element={<PilihCabang />} />
 
-          <Route path="tambah-cabang" element={<TambahCabang />} />
+            <Route path="tambah-cabang" element={<TambahCabang />} />
 
-          <Route path="tambah-admin" element={<TambahAdmin />} />
+            <Route path="tambah-admin" element={<TambahAdmin />} />
 
-          <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/login" />} />
 
-          <Route path="dashboard/" element={<Dashboard />}>
-            <Route path="daftar-civitas/" element={<Civitas />}>
-              <Route path="murid" element={<DaftarMurid />} />
-              <Route path="guru" element={<DaftarGuru />} />
-              <Route path="tambah-guru" element={<TambahGuru />} />
+            <Route path="dashboard/" element={<Dashboard />}>
+              <Route path="daftar-civitas/" element={<Civitas />}>
+                <Route path="murid" element={<DaftarMurid />} />
+                <Route path="guru" element={<DaftarGuru />} />
+                <Route path="tambah-guru" element={<TambahGuru />} />
+              </Route>
+
+              <Route path="pendaftaran" element={<Pendaftaran />} />
+
+              <Route path="barang/" element={<Barang />}>
+                <Route path="pemesanan" element={<DataPemesanan />} />
+                <Route path="buku" element={<DataBuku />} />
+              </Route>
+
+              <Route path="kupon/" element={<Kupon />} />
+              <Route path="pembayaran" element={<Pembayaran />} />
+              <Route path="invoice" element={<Invoice />} />
+              <Route path="merchandise" element={<Merchandise />} />
             </Route>
 
-            <Route path="pendaftaran" element={<Pendaftaran />} />
-
-            <Route path="barang/" element={<Barang />}>
-              <Route path="pemesanan" element={<DataPemesanan />} />
-              <Route path="buku" element={<DataBuku />} />
-            </Route>
-
-            <Route path="kupon/" element={<Kupon />} />
-            <Route path="pembayaran" element={<Pembayaran />} />
-            <Route path="invoice" element={<Invoice />} />
-            <Route path="merchandise" element={<Merchandise />} />
-          </Route>
-
-          <Route path="/*" element={<Navigate to="/login" />} />
-        </Routes>
-      </UserContextProvider>
+            <Route path="/*" element={<Navigate to="/login" />} />
+          </Routes>
+        </UserContextProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

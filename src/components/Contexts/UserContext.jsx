@@ -39,7 +39,7 @@ export const UserContextProvider = ({ children }) => {
         sessionStorage.setItem("cabangName", data.cabangName);
       }
     } catch (error) {
-      console.error("Error: ", error.response.data.message);
+      console.error("Error: ", error);
     }
   };
 

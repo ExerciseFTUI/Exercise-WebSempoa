@@ -3,8 +3,18 @@ import { Link, Outlet } from "react-router-dom";
 import TambahKupon from "./TambahKupon";
 
 const Kupon = () => {
-  const namaCabang = sessionStorage.getItem("cabangName") ? sessionStorage.getItem("cabangName") : "Cabang Sempoa";
+  const namaCabang = sessionStorage.getItem("cabangName")
+    ? sessionStorage.getItem("cabangName")
+    : "Cabang Sempoa";
   const [showTambahKupon, setShowTambahKupon] = useState(false);
+  const cabangId = sessionStorage.getItem("cabangId")
+    ? sessionStorage.getItem("cabangId")
+    : "";
+
+  const kuponQuery = useQuery({
+    queryKey: ["getKupon", cabangId],
+    queryFn: () => getAllCabang(),
+  });
 
   const handleClickAdd = () => {
     setShowTambahKupon((prevState) => !prevState);
@@ -19,13 +29,19 @@ const Kupon = () => {
             <h2 className="font-extralight text-md">Kota, Provinsi</h2>
           </div>
 
-          <div className="font-semibold text-white border-2 border-white rounded-md w-fit h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa ease-in-out duration-200 tracking-wider cursor-pointer" onClick={() => handleClickAdd()}>
+          <div
+            className="font-semibold text-white border-2 border-white rounded-md w-fit h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa ease-in-out duration-200 tracking-wider cursor-pointer"
+            onClick={() => handleClickAdd()}
+          >
             Tambah Kupon
           </div>
         </div>
         <Outlet />
       </div>
-      <TambahKupon isVisible={showTambahKupon} onClose={() => setShowTambahKupon(false)} />
+      <TambahKupon
+        isVisible={showTambahKupon}
+        onClose={() => setShowTambahKupon(false)}
+      />
     </Fragment>
   );
 };

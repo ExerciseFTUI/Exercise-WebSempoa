@@ -1,32 +1,70 @@
-import { useEffect, useState } from "react"
-import Select from "react-select"
+import { useEffect, useState } from "react";
+import Select from "react-select";
 
-import { InputText } from "../../components/Inputs"
+import { InputText } from "../../components/Inputs";
 
-import logo from "../../assets/sempoa-logo.png"
+import { useQuery, useMutation, useQueryClient } from "react-query";
+
+import logo from "../../assets/sempoa-logo.png";
+import { addAdmin, getAllCabang } from "../../utils";
 
 function TambahAdmin() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [role, setRole] = useState("")
+  const queryClient = useQueryClient();
 
-  const [selectedCabang, setSelectedCabang] = useState("")
-  const [listCabang, setListCabang] = useState([])
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+
+  const [selectedCabang, setSelectedCabang] = useState("");
+  const [listCabang, setListCabang] = useState([]);
 
   function getListCabang() {
-    setListCabang([])
-  }
-
-  function handleSubmit(e) {
-    if (role == "") {
-      e.preventDefault()
-      return
-    }
+    setListCabang([]);
   }
 
   useEffect(() => {
-    if (role == "ADMIN_CABANG") getListCabang()
-  }, [role])
+    if (role == "ADMIN_CABANG") getListCabang();
+  }, [role]);
+
+  const cabangQuery = useQuery({
+    queryKey: ["getAllCabang"],
+    queryFn: () => getAllCabang(),
+  });
+
+  const adminMutation = useMutation({
+    mutationFn: () => addAdmin(username, password, role, selectedCabang),
+    onSuccess: () => {
+      alert("Sukses menambahkan admin");
+      clearState();
+    },
+    onError: (error) => {
+      console.error(error);
+      alert("Terdapat Kesalahan Silahkan Coba Lagi");
+    },
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (role == "") {
+      return;
+    }
+    adminMutation.mutate();
+  }
+
+  function handleRoleChange(e) {
+    setRole(e.target.value);
+
+    if (e.target.value !== "ADMIN_CABANG") {
+      setSelectedCabang("");
+    }
+  }
+
+  function clearState() {
+    setUsername("");
+    setPassword("");
+    setRole("");
+    setSelectedCabang("");
+  }
 
   return (
     <div
@@ -75,7 +113,7 @@ function TambahAdmin() {
               name="pilih-role"
               required
               value={role}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => handleRoleChange(e)}
               className="outline-none border-orange-sempoa border-2 text-orange-sempoa w-full px-4 py-2 rounded-full appearance-none cursor-pointer"
             >
               <option disabled></option>
@@ -99,8 +137,13 @@ function TambahAdmin() {
             isDisabled={!(role == "ADMIN_CABANG")}
             placeholder=""
             isSearchable
-            options={listCabang}
-            onInputChange={({ value }) => setSelectedCabang(value)}
+            options={cabangQuery.data.map((cabang) => ({
+              value: cabang._id,
+              label: cabang.namaCabang,
+            }))}
+            onChange={(selectedOption) =>
+              setSelectedCabang(selectedOption.value)
+            }
             styles={{
               control: (base, state) => ({
                 // ...base,
@@ -136,7 +179,7 @@ function TambahAdmin() {
         </button>
       </form>
     </div>
-  )
+  );
 }
 
-export default TambahAdmin
+export default TambahAdmin;
