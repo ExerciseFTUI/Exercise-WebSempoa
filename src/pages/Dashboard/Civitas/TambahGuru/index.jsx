@@ -7,9 +7,12 @@ import { addNewGuru } from "../../../../utils"
 
 import { useMutation } from "react-query"
 import { toast, ToastContainer } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 
 function TambahGuruPage() {
+  const navigate = useNavigate()
+
   const cabangId = sessionStorage.getItem("cabangId")
 
   const [namaLengkap, setNamaLengkap] = useState("")
@@ -43,7 +46,7 @@ function TambahGuruPage() {
         progress: undefined,
         theme: "dark",
       })
-      setTimeout(() => {navigate("/cabang")}, 3000)
+      setTimeout(() => {navigate("/dashboard/daftar-civitas/guru")}, 3000)
     },
     onError: (error) => {
       toast.warn("Gagal untuk mendaftarkan guru baru", {
@@ -67,6 +70,16 @@ function TambahGuruPage() {
   function handleSubmit(e) {
     if (pendidikan == "") {
       e.preventDefault()
+      toast.warn("Mohon isi data pendidikan guru", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
       return
     }
     mutation.mutate()

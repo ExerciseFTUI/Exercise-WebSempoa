@@ -5,14 +5,22 @@ import { CiSearch } from "react-icons/ci"
 
 import URL from "../../../../utils/link"
 import { Link } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
 
 export default function DaftarMurid() {
   const [guru, setGuru] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const cabangId = sessionStorage.getItem("cabangId")
+    ? sessionStorage.getItem("cabangId")
+    : "";
 
   const getData = async () => {
+    setLoading(true)
     try {
       const { data } = await axios.get(`${URL}/guru`)
       setGuru(data)
+      setLoading(false)
       // console.log(data)
     } catch (error) {
       alert(error)
@@ -25,17 +33,33 @@ export default function DaftarMurid() {
       const { data } = await axios.get(`${URL}/guru/filter-by-nama`, {
         params: {
           nama: `${value}`,
+          cabang: `${cabangId}`,
         },
       })
       setGuru(data)
     } catch (error) {
-      alert("Something went wrong")
+      toast.warn("Something went wrong", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
   }
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [cabangId])
+
+  const handleKeyDown = async (e) => {
+    if (e.key === "Enter") {
+      handleInputChange(e)
+    }
+  }
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -46,7 +70,7 @@ export default function DaftarMurid() {
               type="search"
               className="rounded-3xl px-5 p-2 w-full max-w-sm focus:outline-none"
               placeholder="Search"
-              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
 
             <CiSearch className="text-4xl text-white" />
@@ -81,7 +105,7 @@ export default function DaftarMurid() {
                 <tr>
                   <th></th>
                   <td colSpan="3"></td>
-                  <td colSpan="2">No results found</td>
+                  <td colSpan="2">{loading ? ("Loading...") : ("No result found")}</td>
                   <td colSpan="3"></td>
                 </tr>
               ) : (
@@ -105,6 +129,18 @@ export default function DaftarMurid() {
           </table>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   )
 }

@@ -83,3 +83,16 @@ export async function addNewGuru({namaGuru, namaPanggilan, gender, alamatGuru, n
 
   return data;
 }
+
+export async function updateMuridStatus({id_murid, status}){
+  const body = {
+    status: status
+  };
+
+  const { data } = await axios.put(
+    `${import.meta.env.VITE_API_URL}/murid/change-status/${id_murid}`,
+    body
+  );
+
+  return data;
+}
