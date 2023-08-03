@@ -3,6 +3,7 @@ import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link, Outlet, useLocation } from "react-router-dom"
 
 export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL;
@@ -108,11 +109,18 @@ export default function DaftarMurid() {
                       <th></th>
                       <td>{data.id}</td>
                       <td>{data.kode}</td>
-                      <td>{data.nama.toUpperCase()}</td>
+                      <td><Link to="/dashboard/daftar-civitas/guru">{data.nama.toUpperCase()}</Link></td>
                       <td>{data.jenis_kelamin}</td>
                       <td>{data.level_sekarang}</td>
-                      <td>{data.status}</td>
+                      <td>
+                        <select className="select select-ghost w-full max-w-xs" defaultValue={data.status} onChange="">
+                          <option className="text-black">Keluar</option>
+                          <option className="text-black">Cuti</option>
+                          <option className="text-black">Lulus</option>
+                          <option className="text-black">Aktif</option>
+                        </select></td>
                     </tr>
+                    
                   );
                 })
               )}
