@@ -3,8 +3,18 @@ import { useState } from "react"
 import { InputText } from "../../../../components/Inputs/"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
+import { addNewGuru } from "../../../../utils"
+
+import { useMutation } from "react-query"
+import { toast, ToastContainer } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+
 
 function TambahGuruPage() {
+  const navigate = useNavigate()
+
+  const cabangId = sessionStorage.getItem("cabangId")
+
   const [namaLengkap, setNamaLengkap] = useState("")
   const [namaPanggilan, setNamaPanggilan] = useState("")
   const [alamat, setAlamat] = useState("")
@@ -13,6 +23,46 @@ function TambahGuruPage() {
   const [gender, setGender] = useState("")
   const [pendidikan, setPendidikan] = useState("")
 
+  const mutation = useMutation({
+    mutationFn: () =>
+      addNewGuru({
+        namaGuru: namaLengkap,
+        namaPanggilan: namaPanggilan,
+        gender: gender,
+        alamatGuru: alamat,
+        notelp: telp,
+        pendidikanTerakhir: pendidikan,
+        emailGuru: email,
+        cabangId: cabangId
+      }),
+    onSuccess: () => {
+      toast.success("Guru baru berhasil didaftarkan", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+      setTimeout(() => {navigate("/dashboard/daftar-civitas/guru")}, 3000)
+    },
+    onError: (error) => {
+      toast.warn("Gagal untuk mendaftarkan guru baru", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+      setTimeout(() => {}, 3000)
+    },
+  })
+
   function handleGender(e) {
     setGender(e.target.value)
   }
@@ -20,14 +70,24 @@ function TambahGuruPage() {
   function handleSubmit(e) {
     if (pendidikan == "") {
       e.preventDefault()
+      toast.warn("Mohon isi data pendidikan guru", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
       return
     }
+    mutation.mutate()
   }
 
   return (
     <div id="tambah-guru-page" className="min-h-[calc(100vh-132px)] p-4">
       <form
-        onSubmit={handleSubmit}
         className="bg-white w-full h-full p-4 rounded-lg flex flex-col gap-4 md:flex-row"
       >
         <div className="w-full md:w-1/2 flex flex-col gap-4">
@@ -92,9 +152,9 @@ function TambahGuruPage() {
                 <input
                   id="male-checkbox"
                   type="checkbox"
-                  value="laki-laki"
+                  value="Male"
                   className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
-                  checked={gender == "laki-laki" ? true : false}
+                  checked={gender == "Male" ? true : false}
                   onChange={handleGender}
                 />
 
@@ -102,7 +162,7 @@ function TambahGuruPage() {
                   icon={faCheck}
                   className="h-5 w-5 text-orange-sempoa absolute left-0 top-1 ease-in-out duration-200"
                   style={{
-                    opacity: gender == "laki-laki" ? "100%" : "0%",
+                    opacity: gender == "Male" ? "100%" : "0%",
                   }}
                 />
 
@@ -116,9 +176,9 @@ function TambahGuruPage() {
                 <input
                   id="female-checkbox"
                   type="checkbox"
-                  value="perempuan"
+                  value="Female"
                   className="appearance-none h-5 w-5 border-2 rounded border-orange-sempoa"
-                  checked={gender == "perempuan" ? true : false}
+                  checked={gender == "Female" ? true : false}
                   onChange={handleGender}
                 />
 
@@ -126,7 +186,7 @@ function TambahGuruPage() {
                   icon={faCheck}
                   className="h-5 w-5 text-orange-sempoa absolute left-0 top-1 ease-in-out duration-200"
                   style={{
-                    opacity: gender == "perempuan" ? "100%" : "0%",
+                    opacity: gender == "Female" ? "100%" : "0%",
                   }}
                 />
 
@@ -158,13 +218,26 @@ function TambahGuruPage() {
 
           <button
             title="submit-add-guru"
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             className="bg-orange-sempoa text-white self-end py-2 px-4 w-fit whitespace-nowrap rounded-full hover:scale-90 ease-in-out duration-200"
           >
             Tambah Guru
           </button>
         </div>
       </form>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   )
 }

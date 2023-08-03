@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.log(import.meta.env.VITE_API_URL);
-
 export async function getAllCabang() {
   const { data } = await axios.get(
     `${import.meta.env.VITE_API_URL}/cabang/getAllCabang`
@@ -42,6 +40,57 @@ export async function addKupon(bundle, kuponId, cabangId) {
 
   const { data } = await axios.post(
     `${import.meta.env.VITE_API_URL}/kupon/addKupon`,
+    body
+  );
+
+  return data;
+}
+
+export async function createNewCabang({namaCabang, namaPemilik, kode, alamat, notelp, email,}){
+  const body = {
+    namaCabang: namaCabang,
+    namaPemilik: namaPemilik,
+    kode: kode,
+    alamat: alamat,
+    notelp: notelp,
+    email: email,
+  };
+
+  const { data } = await axios.post(
+    `${import.meta.env.VITE_API_URL}/cabang/createCabang`,
+    body
+  );
+
+  return data;
+}
+
+export async function addNewGuru({namaGuru, namaPanggilan, gender, alamatGuru, notelp, pendidikanTerakhir, emailGuru, cabangId}){
+  const body = {
+      namaGuru: namaGuru,
+      namaPanggilan: namaPanggilan,
+      gender: gender,
+      alamatGuru: alamatGuru,
+      notelp: notelp,
+      pendidikanTerakhir: pendidikanTerakhir,
+      emailGuru: emailGuru,
+      cabangId: cabangId
+  };
+
+  const { data } = await axios.post(
+    `${import.meta.env.VITE_API_URL}/guru/addGuru`,
+    body
+  );
+
+  return data;
+}
+
+export async function updateMuridStatus({id_murid, status}){
+  const body = {
+    status: status
+  };
+
+  const { data } = await axios.put(
+    `${import.meta.env.VITE_API_URL}/murid/change-status/${id_murid}`,
     body
   );
 

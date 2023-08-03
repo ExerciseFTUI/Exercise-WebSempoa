@@ -1,26 +1,62 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { CiSearch } from "react-icons/ci"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { CiSearch } from "react-icons/ci";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+
+import { useMutation } from "react-query"
+import { updateMuridStatus } from "../../../../utils";
 
 export default function DaftarMurid() {
   const URL = import.meta.env.VITE_API_URL
   const [murid, setMurid] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const cabangId = sessionStorage.getItem("cabangId")
     ? sessionStorage.getItem("cabangId")
-    : ""
+    : "";
+
+  const mutation = useMutation({
+    mutationFn: (params) =>
+      updateMuridStatus(params),
+    onSuccess: () => {
+      toast.success("Status murid berhasil diupdate", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+    },
+    onError: (error) => {
+      toast.warn("Gagal memperbarui status murid", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+    },
+  })
 
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true)
         const { data } = await axios.get(`${URL}/murid`, {
           params: {
             cabang: `${cabangId}`,
           },
         })
         setMurid(data)
+        setLoading(false)
       } catch (error) {
         toast.warn("No Data Found!", {
           position: "top-center",
@@ -101,7 +137,7 @@ export default function DaftarMurid() {
                 <tr>
                   <th></th>
                   <td colSpan="3"></td>
-                  <td colSpan="2">No results found</td>
+                  <td colSpan="2">{loading ? ("Loading...") : ("No result found")}</td>
                   <td colSpan="3"></td>
                 </tr>
               ) : (
@@ -111,12 +147,25 @@ export default function DaftarMurid() {
                       <th></th>
                       <td>{data.id}</td>
                       <td>{data.kode}</td>
-                      <td>{data.nama.toUpperCase()}</td>
+                      <td><Link to="/dashboard/daftar-civitas/guru">{data.nama.toUpperCase()}</Link></td>
                       <td>{data.jenis_kelamin}</td>
                       <td>{data.level_sekarang}</td>
-                      <td>{data.status}</td>
+                      <td>
+                        <select className="select select-ghost w-full max-w-xs" defaultValue={data.status} 
+                          onChange={(e) => {
+                            mutation.mutate({
+                              id_murid: data.id,
+                              status: e.target.value
+                            })
+                        }}>
+                          <option className="text-black">Keluar</option>
+                          <option className="text-black">Cuti</option>
+                          <option className="text-black">Lulus</option>
+                          <option className="text-black">Aktif</option>
+                        </select></td>
                     </tr>
-                  )
+                    
+                  );
                 })
               )}
             </tbody>

@@ -51,9 +51,9 @@ export default function Pembayaran() {
     getData(currentMonth, currentYear)
   }, [])
 
-  useEffect(() => {
-    console.log(muridFilter)
-  }, [muridFilter])
+  // useEffect(() => {
+  //   console.log(muridFilter)
+  // }, [muridFilter])
 
   const formatDate = (date) => {
     const trimmedDateString = date.substring(0, date.length - 5)

@@ -5,15 +5,23 @@ import { CiSearch } from "react-icons/ci"
 
 import URL from "../../../../utils/link"
 import { Link } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
 
 export default function DaftarMurid() {
   const [guru, setGuru] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const cabangId = sessionStorage.getItem("cabangId")
+    ? sessionStorage.getItem("cabangId")
+    : "";
 
   const getData = async () => {
+    setLoading(true)
     try {
       const { data } = await axios.get(`${URL}/guru`)
       setGuru(data)
-      console.log(data)
+      setLoading(false)
+      // console.log(data)
     } catch (error) {
       alert(error)
     }
@@ -25,17 +33,33 @@ export default function DaftarMurid() {
       const { data } = await axios.get(`${URL}/guru/filter-by-nama`, {
         params: {
           nama: `${value}`,
+          cabang: `${cabangId}`,
         },
       })
       setGuru(data)
     } catch (error) {
-      alert("Something went wrong")
+      toast.warn("Something went wrong", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
   }
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [cabangId])
+
+  const handleKeyDown = async (e) => {
+    if (e.key === "Enter") {
+      handleInputChange(e)
+    }
+  }
 
   return (
     <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
@@ -46,7 +70,7 @@ export default function DaftarMurid() {
               type="search"
               className="rounded-3xl px-5 p-2 w-full max-w-sm focus:outline-none"
               placeholder="Search"
-              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
 
             <CiSearch className="text-4xl text-white" />
@@ -66,12 +90,13 @@ export default function DaftarMurid() {
             <thead>
               <tr>
                 <th></th>
-                <th className="normal-case text-lg">ID</th>
-                <th className="normal-case text-lg">Kode</th>
                 <th className="normal-case text-lg">Nama</th>
-                <th className="normal-case text-lg">Jenis Kelamin</th>
-                <th className="normal-case text-lg">Level</th>
-                <th className="normal-case text-lg">Status</th>
+                <th className="normal-case text-lg">Nickname</th>
+                <th className="normal-case text-lg">Gender</th>
+                <th className="normal-case text-lg">Alamat</th>
+                <th className="normal-case text-lg">No. Telp</th>
+                <th className="normal-case text-lg">Pendidikan</th>
+                <th className="normal-case text-lg">Email</th>
               </tr>
             </thead>
             <tbody>
@@ -80,20 +105,22 @@ export default function DaftarMurid() {
                 <tr>
                   <th></th>
                   <td colSpan="3"></td>
-                  <td colSpan="2">No results found</td>
+                  <td colSpan="2">{loading ? ("Loading...") : ("No result found")}</td>
                   <td colSpan="3"></td>
                 </tr>
               ) : (
                 guru.map((data, i) => {
+                  // console.log(data);
                   return (
                     <tr className="border-hidden hover text-black" key={i}>
                       <th></th>
-                      <td>{data.id}</td>
-                      <td>{data.kode}</td>
-                      <td>{data.nama}</td>
-                      <td>{data.jenis_kelamin}</td>
-                      <td>{data.level_sekarang}</td>
-                      <td>{data.status}</td>
+                      <td>{data.namaGuru}</td>
+                      <td>{data.namaPanggilan}</td>
+                      <td>{data.gender}</td>
+                      <td>{data.alamatGuru}</td>
+                      <td>{data.notelp}</td>
+                      <td>{data.pendidikanTerakhir}</td>
+                      <td>{data.emailGuru}</td>
                     </tr>
                   )
                 })
@@ -102,6 +129,18 @@ export default function DaftarMurid() {
           </table>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   )
 }
