@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar"
 
 const Dashboard = () => {
   return (
-    <div className="font-Inter flex">
+    <div className="font-Inter flex w-screen overflow-hidden">
       <Sidebar />
 
       <Outlet />
