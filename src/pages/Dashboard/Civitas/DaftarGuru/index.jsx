@@ -13,7 +13,7 @@ export default function DaftarMurid() {
     try {
       const { data } = await axios.get(`${URL}/guru`)
       setGuru(data)
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       alert(error)
     }
@@ -66,12 +66,13 @@ export default function DaftarMurid() {
             <thead>
               <tr>
                 <th></th>
-                <th className="normal-case text-lg">ID</th>
-                <th className="normal-case text-lg">Kode</th>
                 <th className="normal-case text-lg">Nama</th>
-                <th className="normal-case text-lg">Jenis Kelamin</th>
-                <th className="normal-case text-lg">Level</th>
-                <th className="normal-case text-lg">Status</th>
+                <th className="normal-case text-lg">Nickname</th>
+                <th className="normal-case text-lg">Gender</th>
+                <th className="normal-case text-lg">Alamat</th>
+                <th className="normal-case text-lg">No. Telp</th>
+                <th className="normal-case text-lg">Pendidikan</th>
+                <th className="normal-case text-lg">Email</th>
               </tr>
             </thead>
             <tbody>
@@ -85,15 +86,17 @@ export default function DaftarMurid() {
                 </tr>
               ) : (
                 guru.map((data, i) => {
+                  // console.log(data);
                   return (
                     <tr className="border-hidden hover text-black" key={i}>
                       <th></th>
-                      <td>{data.id}</td>
-                      <td>{data.kode}</td>
-                      <td>{data.nama}</td>
-                      <td>{data.jenis_kelamin}</td>
-                      <td>{data.level_sekarang}</td>
-                      <td>{data.status}</td>
+                      <td>{data.namaGuru}</td>
+                      <td>{data.namaPanggilan}</td>
+                      <td>{data.gender}</td>
+                      <td>{data.alamatGuru}</td>
+                      <td>{data.notelp}</td>
+                      <td>{data.pendidikanTerakhir}</td>
+                      <td>{data.emailGuru}</td>
                     </tr>
                   )
                 })
