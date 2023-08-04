@@ -137,7 +137,7 @@ function TambahAdmin() {
             isDisabled={!(role == "ADMIN_CABANG")}
             placeholder=""
             isSearchable
-            options={cabangQuery.data.map((cabang) => ({
+            options={cabangQuery.data?.map((cabang) => ({
               value: cabang._id,
               label: cabang.namaCabang,
             }))}
