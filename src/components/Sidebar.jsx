@@ -1,20 +1,26 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import axios from "axios"
 
-import { BsArrowLeftShort, BsPencilSquare, BsCardHeading, BsChevronDown, BsWallet2 } from "react-icons/bs";
-import { MdOutlinePeopleAlt } from "react-icons/md";
-import { BiPackage } from "react-icons/bi";
-import { IoShirtOutline } from "react-icons/io5";
+import {
+  BsArrowLeftShort,
+  BsPencilSquare,
+  BsCardHeading,
+  BsChevronDown,
+  BsWallet2,
+} from "react-icons/bs"
+import { MdOutlinePeopleAlt, MdOutlineAnalytics } from "react-icons/md"
+import { BiPackage } from "react-icons/bi"
+import { IoShirtOutline } from "react-icons/io5"
 
-import sempoaLogo from "../assets/sempoa-logo.png";
+import sempoaLogo from "../assets/sempoa-logo.png"
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  let { pathname } = useLocation();
+  let { pathname } = useLocation()
 
-  const page = pathname.split("/")[2];
+  const page = pathname.split("/")[2]
 
   const Menus = [
     {
@@ -26,12 +32,16 @@ export default function Sidebar() {
     { title: "Kupon", src: <BsCardHeading className={`text-2xl`} /> },
     { title: "Merchandise", src: <IoShirtOutline className={`text-2xl`} /> },
     { title: "Pembayaran", src: <BsWallet2 className={`text-2xl`} /> },
-  ];
+    {
+      title: "Rekapitulasi",
+      src: <MdOutlineAnalytics className={`text-2xl`} />,
+    },
+  ]
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function toggleOpen() {
-    setOpen(!open);
+    setOpen(!open)
   }
 
   /* prettier-ignore */
@@ -49,7 +59,7 @@ export default function Sidebar() {
 
       <img
         src={sempoaLogo}
-        className={`relative w-56 duration-500 ${open ? "translate-x-0 ease-out" : "-translate-x-[200%] ease-in lg:w-0 overflow-hidden"}`}
+        className={`relative w-56 duration-500 mb-12 ${open ? "translate-x-0 ease-out" : "-translate-x-[200%] ease-in lg:w-0 overflow-hidden"}`}
         alt="Sempoa logo"
       />
 
@@ -65,6 +75,8 @@ export default function Sidebar() {
             link = "/dashboard/barang/pemesanan"
           else if (id == "daftar-civitas")
             link = "/dashboard/daftar-civitas/murid"
+          else if (id == "rekapitulasi")
+            link = "/dashboard/rekapitulasi/siswa"
           else
             link = `/dashboard/${id}`
 
@@ -90,7 +102,7 @@ export default function Sidebar() {
         })}
       </ul>
 
-      <div className={`border-orange-darker border-2 cursor-pointer duration-500 px-2 h-16 rounded-2xl flex items-center justify-center gap-5`}>
+      <div className={`border-orange-darker border-2 cursor-pointer duration-500 p-2 h-16 rounded-2xl flex items-center justify-center gap-5`}>
         <div className="bg-orange-darker bg-opacity-90 text-neutral-content rounded-full w-11 h-11" />
 
         {open && (
