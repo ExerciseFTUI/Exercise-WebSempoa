@@ -33,6 +33,7 @@ import TambahAdmin from "./pages/TambahAdmin";
 import TambahCabang from "./pages/TambahCabang";
 
 import "./index.css";
+import StokKuponTc from "./pages/Dashboard/Kupon/StokKuponTc";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -62,7 +63,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="buku" element={<DataBuku />} />
             </Route>
 
-            <Route path="kupon/" element={<Kupon />} />
+            <Route path="kupon/" element={<Kupon />}>
+              <Route path="stok-kupon-tc" element={<StokKuponTc />} />
+            </Route>
+
             <Route path="pembayaran" element={<Pembayaran />} />
             <Route path="invoice" element={<Invoice />} />
             <Route path="merchandise" element={<Merchandise />} />
