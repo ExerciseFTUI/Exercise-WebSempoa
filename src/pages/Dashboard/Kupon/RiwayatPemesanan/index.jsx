@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function StokKuponTc() {
+export default function RiwayatPemesanan() {
   const URL = import.meta.env.VITE_API_URL;
   const [kupon, setKupon] = useState([]);
 
@@ -13,7 +13,7 @@ export default function StokKuponTc() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`${URL}/kupon`, {
+        const { data } = await axios.get(`${URL}/`, {
           params: {
             cabang: `${cabangId}`,
           },
@@ -34,12 +34,13 @@ export default function StokKuponTc() {
     };
     getData();
   }, [cabangId]);
+  console.log(kupon);
 
   const handleInputChange = async (e) => {
     const { value } = e.target;
     try {
       const { data } = await axios.get(`${URL}/`, {
-        ///filter apanih
+        //////filter
         params: {
           nama: `${value}`,
           cabang: `${cabangId}`,
@@ -75,47 +76,50 @@ export default function StokKuponTc() {
           <CiSearch className="text-4xl text-white" />
         </div>
 
-        <div className="flex flex-row">
-          <div className="overflow-x-auto bg-white rounded-3xl w-3/4">
-            <table className="table w-full">
-              {/* head */}
-              <thead>
+        <div className="overflow-x-auto bg-white rounded-3xl">
+          <table className="table w-full">
+            {/* head */}
+            <thead>
+              <tr>
+                <th></th>
+                <th className="normal-case text-lg">No.</th>
+                <th className="normal-case text-lg">Req. ID</th>
+                <th className="normal-case text-lg">Tanggal Pemesanan</th>
+                <th className="normal-case text-lg">Pengirim</th>
+                <th className="normal-case text-lg">Penerima</th>
+                <th className="normal-case text-lg">Bundle</th>
+                <th className="normal-case text-lg">Status</th>
+                <th className="normal-case text-lg">Perubahan Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              {kupon.length == 0 ? (
                 <tr>
                   <th></th>
-                  <th className="normal-case text-lg">No.</th>
-                  <th className="normal-case text-lg">Bundle</th>
-                  <th className="normal-case text-lg">Kupon ID</th>
+                  <td colSpan="3"></td>
+                  <td colSpan="2">No results found</td>
+                  <td colSpan="3"></td>
                 </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                {kupon.length == 0 ? (
-                  <tr>
-                    <th></th>
-                    <td colSpan="3"></td>
-                    <td colSpan="2">No results found</td>
-                    <td colSpan="3"></td>
-                  </tr>
-                ) : (
-                  kupon.map((data, i) => {
-                    return (
-                      <tr key={i} className="border-hidden hover text-black">
-                        <th></th>
-                        <td>{i + 1}</td>
-                        <td>{data.bundle}</td>
-                        <td>{data.kuponId}</td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex flex-col bg-white rounded-2xl mx-10 h-fit w-1/6 p-5 text-xs sm:text-sm md:text-base">
-            <span className="font-bold">Statistik</span>
-            <div className="bg-black h-[1.2px]"></div>
-            <span className="mt-2">Total Kupon: {kupon.length}</span>
-          </div>
+              ) : (
+                kupon.map((data, i) => {
+                  return (
+                    <tr key={i} className="border-hidden hover text-black">
+                      <th></th>
+                      <td>{i + 1}</td>
+                      <td>{data.k}</td>
+                      <td>{data.k}</td>
+                      <td>{data.l}</td>
+                      <td>{data.k}</td>
+                      <td>{data.k}</td>
+                      <td>{data.k}</td>
+                      <td>{data.k}</td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
       <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme="dark" />

@@ -34,6 +34,7 @@ import TambahCabang from "./pages/TambahCabang";
 
 import "./index.css";
 import StokKuponTc from "./pages/Dashboard/Kupon/StokKuponTc";
+import RiwayatPemesanan from "./pages/Dashboard/Kupon/RiwayatPemesanan";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -65,6 +66,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             <Route path="kupon/" element={<Kupon />}>
               <Route path="stok-kupon-tc" element={<StokKuponTc />} />
+              <Route path="riwayat-pemesanan" element={<RiwayatPemesanan />} />
             </Route>
 
             <Route path="pembayaran" element={<Pembayaran />} />

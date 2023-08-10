@@ -28,7 +28,13 @@ const Kupon = () => {
             to="/dashboard/kupon/stok-kupon-tc"
             className="font-semibold text-white border-2 border-white rounded-md w-fit h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa tracking-wider cursor-pointer ease-in-out duration-200"
             style={page == "stok-kupon-tc" ? { background: "#FAFAFA", color: "#000000" } : { background: "transparent", color: "#FAFAFA" }}>
-            Data Murid
+            Stok Kupon TC
+          </Link>
+          <Link
+            to="/dashboard/kupon/riwayat-pemesanan"
+            className="font-semibold text-white border-2 border-white rounded-md w-fit h-fit px-2 py-1 hover:bg-white hover:text-orange-sempoa tracking-wider cursor-pointer ease-in-out duration-200"
+            style={page == "riwayat-pemesanan" ? { background: "#FAFAFA", color: "#000000" } : { background: "transparent", color: "#FAFAFA" }}>
+            Riwayat Pemesanan
           </Link>
         </div>
         <Outlet />
