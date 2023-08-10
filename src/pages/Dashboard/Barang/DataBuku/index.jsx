@@ -35,11 +35,155 @@ export default function DataBuku() {
       pembeli: "-",
       status: "Tersedia",
     },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
+    {
+      id: 123546,
+      no: "0812Ab-80",
+      level: "Sulit",
+      tanggal: "9 November 2003",
+      pembeli: "-",
+      status: "Tersedia",
+    },
   ]
 
   return (
-    <div className="px-12 p-6 space-y-6 min-h-[calc(100vh-128px)] md:min-h-[calc(100vh-112px)]">
-      <div className="flex flex-col md:flex-row items-center gap-8">
+    <div className="flex flex-col bg-orange-sempoa p-6 h-screen overflow-clip">
+      <div className="flex flex-col md:flex-row items-center gap-8 mb-6">
         <div className="flex gap-2">
           <input
             type="search"
@@ -67,13 +211,13 @@ export default function DataBuku() {
         </div>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-3xl">
+      <div className="bg-white w-full h-fit rounded-3xl overflow-auto">
         <table className="table w-full">
           {/* head */}
           <thead>
             <tr>
               <th></th>
-              <th className="normal-case text-lg text-center">ID</th>
+              <th className="normal-case text-lg">ID</th>
               <th className="normal-case text-lg">No. Buku</th>
               <th className="normal-case text-lg">Level</th>
               <th className="normal-case text-lg">Tanggal Keluar</th>
@@ -87,7 +231,7 @@ export default function DataBuku() {
             {buku.map((data, i) => (
               <tr key={i} className="border-hidden hover text-black">
                 <td></td>
-                <td className="text-center">{data.id}</td>
+                <td className="">{data.id}</td>
                 <td>{data.no}</td>
                 <td>{data.level}</td>
                 <td>{data.tanggal}</td>

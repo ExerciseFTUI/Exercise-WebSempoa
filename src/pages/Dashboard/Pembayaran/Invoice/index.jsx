@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { useLocation } from "react-router-dom"
 
 export default function Invoice() {
-  const URL = import.meta.env.VITE_API_URL;
+  const URL = import.meta.env.VITE_API_URL
   const userId = sessionStorage.getItem("userId")
     ? sessionStorage.getItem("userId")
-    : "276";
+    : "276"
   const cabangId = sessionStorage.getItem("cabangId")
     ? sessionStorage.getItem("cabangId")
-    : "";
+    : ""
   const namaCabang = sessionStorage.getItem("cabangName")
     ? sessionStorage.getItem("cabangName")
-    : "Cabang Sempoa";
-  const [muridFilter, setMuridFilter] = useState([]);
-  const [namaMurid, setNamaMurid] = useState("");
-  const location = useLocation();
-  const { currentMonth, currentYear } = location.state ? location.state : "";
+    : "Cabang Sempoa"
+  const [muridFilter, setMuridFilter] = useState([])
+  const [namaMurid, setNamaMurid] = useState("")
+  const location = useLocation()
+  const { currentMonth, currentYear } = location.state ? location.state : ""
   const [thisMonth, setThisMonth] = useState(
     currentMonth === undefined ? new Date().getMonth() + 1 : currentMonth
-  );
+  )
   const [thisYear, setThisYear] = useState(
     currentYear === undefined ? new Date().getFullYear() : currentYear
-  );
+  )
 
   const getData = async () => {
     try {
       const params = new URLSearchParams({
         cabang: `${cabangId}`,
         id: `${userId}`,
-      });
+      })
       const { data } = await axios.post(
         `${URL}/murid/filter-by-invoice?${params}`
-      );
-      setNamaMurid(data.nama);
-      setMuridFilter(data.pembayaran);
+      )
+      setNamaMurid(data.nama)
+      setMuridFilter(data.pembayaran)
     } catch (error) {
       toast.warn("No Data Found!", {
         position: "top-center",
@@ -47,9 +47,9 @@ export default function Invoice() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
+      })
     }
-  };
+  }
 
   const generateInvoice = async (invoiceId) => {
     try {
@@ -57,10 +57,10 @@ export default function Invoice() {
         cabang: `${cabangId}`,
         id: `${userId}`,
         invoiceId: `${invoiceId}`,
-      });
+      })
 
-      await axios.get(`http://localhost:5000/murid/generateInvoice?${params}`);
-      window.location.href = `http://localhost:5000/murid/generateInvoice?${params.toString()}`;
+      await axios.get(`http://localhost:5000/murid/generateInvoice?${params}`)
+      window.location.href = `http://localhost:5000/murid/generateInvoice?${params.toString()}`
     } catch (error) {
       toast.warn("Generate Invoice Failed", {
         position: "top-center",
@@ -71,33 +71,33 @@ export default function Invoice() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
+      })
     }
-  };
+  }
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   useEffect(() => {
-    handleDateChange();
-  }, [thisMonth, thisYear]);
+    handleDateChange()
+  }, [thisMonth, thisYear])
 
   const formatDate = (date) => {
-    const trimmedDateString = date.substring(0, date.length - 5);
-    const finalDateString = trimmedDateString.replace("T", " ");
-    return finalDateString;
-  };
+    const trimmedDateString = date.substring(0, date.length - 5)
+    const finalDateString = trimmedDateString.replace("T", " ")
+    return finalDateString
+  }
 
   const handleMonth = (e) => {
-    const month = e.target.value;
-    setThisMonth(month);
-  };
+    const month = e.target.value
+    setThisMonth(month)
+  }
 
   const handleYear = (e) => {
-    const year = e.target.value;
-    setThisYear(year);
-  };
+    const year = e.target.value
+    setThisYear(year)
+  }
 
   const [invoiceObj, setInvoiceObj] = useState({
     invoice: {
@@ -108,10 +108,10 @@ export default function Invoice() {
       harga: null,
       jenis_pembayaran: "Cash",
     },
-  });
+  })
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setInvoiceObj((prevObject) => ({
       ...prevObject,
       invoice: {
@@ -119,8 +119,8 @@ export default function Invoice() {
         bulan: `${thisMonth}-${thisYear}`,
         [name]: value,
       },
-    }));
-  };
+    }))
+  }
 
   const handleDateChange = () => {
     setInvoiceObj((prevObject) => ({
@@ -129,12 +129,12 @@ export default function Invoice() {
         ...prevObject.invoice,
         bulan: `${thisMonth}-${thisYear}`,
       },
-    }));
-  };
+    }))
+  }
 
   const timeout = (delay) => {
-    return new Promise((res) => setTimeout(res, delay));
-  };
+    return new Promise((res) => setTimeout(res, delay))
+  }
 
   const createInvoice = async () => {
     if (
@@ -151,14 +151,14 @@ export default function Invoice() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
-      return;
+      })
+      return
     }
     try {
       const response = await axios.put(
         `${URL}/murid/invoice/${userId}`,
         invoiceObj
-      );
+      )
       toast.success("Response: Success", {
         position: "top-center",
         autoClose: 2000,
@@ -168,11 +168,11 @@ export default function Invoice() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
-      getData();
-      await timeout(3000);
+      })
+      getData()
+      await timeout(3000)
     } catch (error) {
-      const message = error.response.data.error;
+      const message = error.response.data.error
       toast.warn(message, {
         position: "top-center",
         autoClose: 5000,
@@ -182,19 +182,19 @@ export default function Invoice() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-      });
+      })
     }
-  };
+  }
 
   const handleGenerateInvoice = (invoiceId) => {
-    console.log(invoiceId);
-    console.log(userId);
-    console.log(cabangId);
-    generateInvoice(invoiceId);
-  };
+    console.log(invoiceId)
+    console.log(userId)
+    console.log(cabangId)
+    generateInvoice(invoiceId)
+  }
 
   return (
-    <div className="flex-auto bg-orange-sempoa overflow-x-hidden">
+    <div className="flex flex-col bg-orange-sempoa overflow-x-hidden">
       <div className="flex justify-between items-center bg-orange-darker font-Inter text-white p-6 px-12">
         <div className="space-y-2">
           <h1 className="font-bold text-2xl">{namaCabang}</h1>
@@ -240,6 +240,7 @@ export default function Invoice() {
             </select>
           </div>
         </div>
+
         <div className="grid grid-cols-3 space-x-2 pb-6">
           <div className="col-span-1">
             <div className="flex flex-col gap-1">
@@ -262,6 +263,7 @@ export default function Invoice() {
               />
             </div>
           </div>
+
           <div className="col-span-1 pl-6">
             <div className="flex flex-col gap-1">
               <span className="text-white">Tipe Invoice</span>
@@ -283,6 +285,7 @@ export default function Invoice() {
               />
             </div>
           </div>
+
           <div className="col-span-1 pl-6">
             <div className="flex flex-col gap-1">
               <span className="text-white">Jenis Pembayaran</span>
@@ -349,13 +352,14 @@ export default function Invoice() {
                         </button>
                       </td>
                     </tr>
-                  );
+                  )
                 })
               )}
             </tbody>
           </table>
         </div>
       </div>
+
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -369,5 +373,5 @@ export default function Invoice() {
         theme="dark"
       />
     </div>
-  );
+  )
 }

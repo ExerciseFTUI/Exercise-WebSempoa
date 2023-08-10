@@ -51,10 +51,6 @@ export default function Pembayaran() {
     getData(currentMonth, currentYear)
   }, [])
 
-  // useEffect(() => {
-  //   console.log(muridFilter)
-  // }, [muridFilter])
-
   const formatDate = (date) => {
     const trimmedDateString = date.substring(0, date.length - 5)
     const finalDateString = trimmedDateString.replace("T", " ")
@@ -205,6 +201,7 @@ export default function Pembayaran() {
           </table>
         </div>
       </div>
+
       <ToastContainer
         position="top-center"
         autoClose={5000}

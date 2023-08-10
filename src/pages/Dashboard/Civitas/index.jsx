@@ -10,7 +10,7 @@ export default function Civitas() {
     : "Cabang Sempoa"
 
   return (
-    <div className="bg-orange-sempoa flex flex-col w-full overflow-hidden">
+    <div className="bg-orange-sempoa flex flex-col w-full h-screen">
       <div className="bg-orange-darker font-Inter text-white py-6 px-12 flex flex-col justify-between gap-4 md:flex-row">
         <div className="flex md:flex-col items-end md:items-start gap-2">
           <h1 className="font-bold text-2xl">{namaCabang}</h1>
