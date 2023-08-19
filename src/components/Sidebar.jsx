@@ -1,26 +1,20 @@
-import React, { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import axios from "axios"
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import {
-  BsArrowLeftShort,
-  BsPencilSquare,
-  BsCardHeading,
-  BsChevronDown,
-  BsWallet2,
-} from "react-icons/bs"
-import { MdOutlinePeopleAlt, MdOutlineAnalytics } from "react-icons/md"
-import { BiPackage } from "react-icons/bi"
-import { IoShirtOutline } from "react-icons/io5"
+import { BsArrowLeftShort, BsPencilSquare, BsCardHeading, BsChevronDown, BsWallet2 } from "react-icons/bs";
+import { MdOutlinePeopleAlt, MdOutlineAnalytics } from "react-icons/md";
+import { BiPackage } from "react-icons/bi";
+import { IoShirtOutline } from "react-icons/io5";
 
-import sempoaLogo from "../assets/sempoa-logo.png"
+import sempoaLogo from "../assets/sempoa-logo.png";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  let { pathname } = useLocation()
+  let { pathname } = useLocation();
 
-  const page = pathname.split("/")[2]
+  const page = pathname.split("/")[2];
 
   const Menus = [
     {
@@ -36,12 +30,12 @@ export default function Sidebar() {
       title: "Rekapitulasi",
       src: <MdOutlineAnalytics className={`text-2xl`} />,
     },
-  ]
+  ];
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function toggleOpen() {
-    setOpen(!open)
+    setOpen(!open);
   }
 
   /* prettier-ignore */
@@ -73,12 +67,10 @@ export default function Sidebar() {
 
           if (id == "barang")
             link = "/dashboard/barang/pemesanan"
-          else if (id == "daftar-civitas")
-            link = "/dashboard/daftar-civitas/murid"
-          else if (id == "rekapitulasi")
-            link = "/dashboard/rekapitulasi/siswa"
-          else
-            link = `/dashboard/${id}`
+          else if (id == "daftar-civitas") link = "/dashboard/daftar-civitas/murid";
+          else if (id == "kupon") link = "/dashboard/kupon/stok-kupon-tc";
+          else if (id == "rekapitulasi") link = "/dashboard/rekapitulasi/siswa";
+          else link = `/dashboard/${id}`;
 
           const handleClick = () =>
             navigate(link, { state: { relative: true } })
